@@ -1,0 +1,13 @@
+//
+// Created by Arina on 10.03.2026.
+//
+
+#ifndef HSE_PROJECT_SPACE_GAME_INFORMATIONPLAYER_H
+#define HSE_PROJECT_SPACE_GAME_INFORMATIONPLAYER_H
+
+
+class InformationPlayer {
+};
+
+
+#endif //HSE_PROJECT_SPACE_GAME_INFORMATIONPLAYER_H
