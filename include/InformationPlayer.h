@@ -18,6 +18,8 @@ private:
 public:
     InformationPlayer (const std::string namepla, int py, int px, int startMoney);
     std::string getName()const;
+    int getX()const{return posX;};
+    int getY()const{return posY;};
 
 
 };
