@@ -8,4 +8,6 @@ add_executable(SpaceGame main.cpp
         src/Map.cpp
         include/Map.h
         src/NotEnoughMoney.cpp
-        include/NotEnoughMoney.h)
+        include/NotEnoughMoney.h
+        src/wallet.cpp
+        include/wallet.h)
