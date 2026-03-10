@@ -1,13 +1,24 @@
-//
-// Created by Arina on 10.03.2026.
-//
-
-#ifndef HSE_PROJECT_SPACE_GAME_INFORMATIONPLAYER_H
-#define HSE_PROJECT_SPACE_GAME_INFORMATIONPLAYER_H
-
-
+#pragma once
+#include <string>
+#include <vector>
+#include <map>
+#include "wallet.h"
+struct Resource {
+    enum Type{ Fuel, Food, Drinks, Details, Decorations};
+    Type type;
+    int amount;
+};
 class InformationPlayer {
+private:
+    std::string name;
+    std::vector<Resource> inventory;
+    int posX, posY;
+    wallet wallet;
+    std::map<Resource::Type, int> sellPrice;
+public:
+
+
+
 };
 
 
-#endif //HSE_PROJECT_SPACE_GAME_INFORMATIONPLAYER_H
