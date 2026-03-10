@@ -11,4 +11,4 @@ public:
     void deposit(int amount);
     int getBal() const;
 };
-
+std::ostream& operator<<(std::ostream& os, const wallet& wal);
