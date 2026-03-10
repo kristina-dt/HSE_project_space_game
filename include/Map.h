@@ -5,5 +5,5 @@
 #include "InformationPlayer.h"
 class Map {
 public:
-    static void WholeMap(const std::vector<std::string>& map, const InformationPlayer& player);
+    static void draw(sf::RenderWindow& window, const std::vector<std::string>& map, const InformationPlayer& player);
 };
