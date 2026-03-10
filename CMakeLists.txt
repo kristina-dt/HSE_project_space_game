@@ -6,4 +6,6 @@ add_subdirectory(src)
 include_directories(include)
 add_executable(SpaceGame main.cpp
         src/Map.cpp
-        include/Map.h)
+        include/Map.h
+        src/NotEnoughMoney.cpp
+        include/NotEnoughMoney.h)
