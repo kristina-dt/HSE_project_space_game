@@ -1,5 +1,6 @@
 
 #include "../include/InformationPlayer.h"
+#include "iostream"
 
 InformationPlayer::InformationPlayer(const std::string namepla) : name(namepla), posX(2),posY(3),wall(100) {
     inventory.push_back({Resource::Type::Fuel, 5});
@@ -34,4 +35,25 @@ int InformationPlayer::getAmountResource(Resource::Type type) const {
 }
 int InformationPlayer::getSellPrice(Resource::Type type) const {
     return sellPrice.at(type);
+}
+void InformationPlayer::print() const {
+    std::cout <<"Player's name: " << name << '\n';
+    std::cout << wall << '\n';
+    std::cout<<"Inventory:\n";
+    for (const auto& res : inventory) {
+        std::string typeName;
+        switch (res.type) {
+            case Resource::Type::Fuel: typeName = "Fuel"; break;
+            case Resource::Type::Food: typeName = "Food"; break;
+            case Resource::Type::Drinks: typeName = "Drinks"; break;
+            case Resource::Type::Details: typeName = "Details"; break;
+            case Resource::Type::Decorations: typeName = "Decorations"; break;
+        }
+        std::cout << "  - " << typeName << ": " << res.amount << " units\n";
+    }
+    std::cout<<"Fuel sale price: "  << sellPrice.at(Resource::Type::Fuel) << '\n';
+    std::cout<<"Food sale price: " << sellPrice.at(Resource::Type::Food)<<'\n';
+    std::cout<<"Drinks sale price: " << sellPrice.at(Resource::Type::Drinks)<<'\n';
+    std::cout<<"Details sale price: "  << sellPrice.at(Resource::Type::Details)<<'\n';
+    std::cout<<"Decorations sale price: " << sellPrice.at(Resource::Type::Decorations)<<'\n';
 }
