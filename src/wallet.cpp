@@ -1,5 +1,8 @@
-//
-// Created by Arina on 10.03.2026.
-//
 
 #include "../include/wallet.h"
+
+wallet::wallet(int initialAmount) noexcept : balance(initialAmount) {
+    if (initialAmount<0) {
+        balance = 0;
+    }
+}
