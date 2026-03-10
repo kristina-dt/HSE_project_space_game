@@ -3,6 +3,22 @@
 #include "InformationPlayer.h"
 #include <string>
 
+struct Position {
+    int x;
+    int y;
+
+    Position(int x = 0, int y = 0) : x(x), y(y) {}
+
+    bool isNearby(float playerX, float playerY, float distance = 2.0f) const {
+        float dx = playerX - x;
+        float dy = playerY - y;
+        return (dx * dx + dy * dy) <= distance * distance;
+    }
+
+    std::string toString() const {
+        return "(" + std::to_string(x) + ", " + std::to_string(y) + ")";
+    }
+};
 
 class Appliance {
 protected:
