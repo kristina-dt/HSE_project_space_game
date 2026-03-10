@@ -4,4 +4,6 @@ set(CMAKE_CXX_STANDARD 23)
 
 add_subdirectory(src)
 include_directories(include)
-add_executable(SpaceGame main.cpp)
+add_executable(SpaceGame main.cpp
+        src/Map.cpp
+        include/Map.h)
