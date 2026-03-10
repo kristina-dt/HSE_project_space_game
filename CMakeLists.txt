@@ -2,9 +2,6 @@ cmake_minimum_required(VERSION 3.20)
 project(HSE_project_space_game)
 set(CMAKE_CXX_STANDARD 23)
 
-list(APPEND CMAKE_PREFIX_PATH "/opt/homebrew")
-find_package(SFML 3 COMPONENTS Graphics Window System REQUIRED)
-
 add_subdirectory(src)
 include_directories(include)
 add_executable(SpaceGame main.cpp
@@ -14,8 +11,8 @@ add_executable(SpaceGame main.cpp
         include/NotEnoughMoney.h
         src/wallet.cpp
         include/wallet.h
+        src/InformationPlayer.cpp
+        include/InformationPlayer.h
         src/GameEngine.cpp
         include/GameEngine.h
 )
-target_include_directories(SpaceGame PUBLIC include)
-target_link_libraries(SpaceGame SFML::Graphics SFML::Window SFML::System)
