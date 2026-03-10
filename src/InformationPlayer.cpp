@@ -2,7 +2,7 @@
 #include "../include/InformationPlayer.h"
 #include "iostream"
 
-InformationPlayer::InformationPlayer(const std::string namepla) : name(namepla), posX(2),posY(3),wall(100) {
+InformationPlayer::InformationPlayer(const std::string namepla) : name(namepla), wall(100) {
     inventory.push_back({Resource::Type::Fuel, 5});
     inventory.push_back({Resource::Type::Food,7});
     inventory.push_back({Resource::Type::Drinks, 7});
