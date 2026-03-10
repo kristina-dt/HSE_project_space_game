@@ -12,6 +12,7 @@ add_executable(SpaceGame main.cpp
         src/wallet.cpp
         include/wallet.h
         src/InformationPlayer.cpp
-        include/InformationPlayer.h)
+        include/InformationPlayer.h
         src/GameEngine.cpp
-        include/GameEngine.h)
+        include/GameEngine.h
+)
