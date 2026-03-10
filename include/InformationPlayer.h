@@ -16,7 +16,8 @@ private:
     wallet wallet;
     std::map<Resource::Type, int> sellPrice;
 public:
-
+    InformationPlayer (const std::string namepla, int py, int px, int startMoney);
+    std::string getName()const;
 
 
 };
