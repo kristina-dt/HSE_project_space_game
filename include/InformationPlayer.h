@@ -12,7 +12,7 @@ class InformationPlayer {
 private:
     std::string name;
     std::vector<Resource> inventory;
-    static constexpr int posX = 2, posY = 3;
+     int posX = 2, posY = 3;
     wallet wall;
     std::map<Resource::Type, int> sellPrice;
 public:
@@ -21,6 +21,7 @@ public:
     int getX()const{return posX;};
     int getY()const{return posY;};
     wallet& getWal();
+    void SetPosition(int x, int y);
     int getAmountResource(Resource::Type type) const;
     int getSellPrice(Resource::Type type) const;
     void print() const;
