@@ -1,13 +1,13 @@
-//
-// Created by Arina on 10.03.2026.
-//
 
-#ifndef HSE_PROJECT_SPACE_GAME_WALLET_H
-#define HSE_PROJECT_SPACE_GAME_WALLET_H
-
+#pragma once
+#include <ostream>
 
 class wallet {
+private:
+    int balance;
+public:
+    wallet (int initialAmount) noexcept;
+    void withdraw(int amount);
+
 };
 
-
-#endif //HSE_PROJECT_SPACE_GAME_WALLET_H
