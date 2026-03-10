@@ -12,11 +12,11 @@ class InformationPlayer {
 private:
     std::string name;
     std::vector<Resource> inventory;
-    int posX, posY;
+    static constexpr int posX = 2, posY = 3;
     wallet wall;
     std::map<Resource::Type, int> sellPrice;
 public:
-    InformationPlayer (const std::string namepla, int py, int px, int startMoney);
+    InformationPlayer (const std::string namepla);
     std::string getName()const;
     int getX()const{return posX;};
     int getY()const{return posY;};
