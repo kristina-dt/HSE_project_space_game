@@ -1,8 +1,8 @@
 //
 // Created by Greta Yugay on 11.03.2026.
 //
-
 #include "../include/Ship.h"
+
 Ship::Ship()
     : x_(START_X),
       y_(5.0f),
@@ -17,7 +17,7 @@ Ship::Ship(float startX, float y, float speed)
       active_(true),
       order_(std::nullopt) {}
 
-Ship::Ship(float startX, float y, float speed, std::shared_ptr<Order> order)
+Ship::Ship(float startX, float y, float speed, std::unique_ptr<Order> order)
     : x_(startX),
       y_(y),
       speed_(speed),
@@ -63,19 +63,19 @@ float Ship::getSpeed() const noexcept {
 
 std::string Ship::getOrderInfo() const {
     if (!hasOrder()) {
-        return "This ship has no order.";
+        return "No order";
     }
     return (*order_)->describe();
 }
 
-std::shared_ptr<Order> Ship::getOrder() const noexcept {
+Order* Ship::getOrder() const noexcept {
     if (!hasOrder()) {
         return nullptr;
     }
-    return *order_;
+    return order_->get();
 }
 
-void Ship::setOrder(std::shared_ptr<Order> order) {
+void Ship::setOrder(std::unique_ptr<Order> order) {
     order_ = std::move(order);
 }
 
@@ -88,8 +88,7 @@ int Ship::completeOrderAndGetReward() {
         return 0;
     }
 
-    const int reward = (*order_)->rewardMoney();
+    int reward = (*order_)->rewardMoney();
     clearOrder();
-    active_ = false;
     return reward;
 }
