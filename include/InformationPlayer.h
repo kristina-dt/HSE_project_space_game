@@ -26,6 +26,7 @@ public:
     void SetPosition(float x, float y);
     int getAmountResource(Resource::Type type) const;
     int getSellPrice(Resource::Type type) const;
+    bool sell(Resource::Type type, int amount);
     void print() const;
 };
 
