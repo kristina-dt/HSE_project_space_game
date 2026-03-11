@@ -61,6 +61,30 @@ int InformationPlayer::getAmountResource(Resource::Type type) const {
 int InformationPlayer::getSellPrice(Resource::Type type) const {
     return sellPrice.at(type);
 }
+bool InformationPlayer::sell(Resource::Type type, int amount) {
+    for (auto& res : inventory) {
+        if (res.type == type) {
+            if (res.amount >= amount) {
+                res.amount -= amount;
+                std::cout << "Sold " << amount << " units of ";
+                switch (type) {
+                    case Resource::Type::Fuel: std::cout << "Fuel"; break;
+                    case Resource::Type::Food: std::cout << "Food"; break;
+                    case Resource::Type::Drinks: std::cout << "Drinks"; break;
+                    case Resource::Type::Details: std::cout << "Details"; break;
+                    case Resource::Type::Decorations: std::cout << "Decorations"; break;
+                }
+                std::cout << "\n";
+                return true;
+            } else {
+                std::cout << "Not enough resources!\n";
+                return false;
+            }
+        }
+    }
+    return false;
+}
+
 void InformationPlayer::print() const {
     std::cout <<"Player's name: " << name << '\n';
     std::cout << wall << '\n';
