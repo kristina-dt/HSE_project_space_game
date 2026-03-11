@@ -2,7 +2,7 @@
 
 #include "Appliance.h"
 #include "FuelMaker.h"
-#include "PartAxssembler.h"
+#include "PartAssembler.h"
 #include "Foodmaker.h"
 #include "InformationPlayer.h"
 #include <vector>
