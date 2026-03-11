@@ -1,6 +1,3 @@
-//
-// Created by Greta Yugay on 11.03.2026.
-//
 #pragma once
 
 #include "Order.h"

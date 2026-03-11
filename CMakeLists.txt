@@ -18,6 +18,8 @@ add_executable(SpaceGame main.cpp
         include/InformationPlayer.h
         src/GameEngine.cpp
         include/GameEngine.h
+        src/ProductionManager.cpp
+        include/ProductionManager.h
 )
 
 target_include_directories(SpaceGame PUBLIC include)

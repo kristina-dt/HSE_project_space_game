@@ -47,7 +47,7 @@ Position ProductionManager::getAppliancePosition(int index) const {
 }
 
 
-void ProductionManager::produceAll(Player& player) {
+void ProductionManager::produceAll(InformationPlayer& player) {
     std::cout << "\n🔨🔨🔨 PRODUCTION CYCLE 🔨🔨🔨\n";
 
     for (size_t i = 0; i < appliances_.size(); ++i) {
@@ -58,7 +58,7 @@ void ProductionManager::produceAll(Player& player) {
     std::cout << "\n Production cycle completed!\n";
 }
 
-void ProductionManager::produceAt(size_t index, Player& player) {
+void ProductionManager::produceAt(size_t index, InformationPlayer& player) {
     if (index < appliances_.size()) {
         std::cout << "\n▶ Station #" << index << " (" << appliances_[index]->getType() << "):\n";
         appliances_[index]->produce(player);
@@ -67,7 +67,7 @@ void ProductionManager::produceAt(size_t index, Player& player) {
     }
 }
 
-void ProductionManager::upgradeAppliance(size_t index, Player& player) {
+void ProductionManager::upgradeAppliance(size_t index, InformationPlayer& player) {
     if (index >= appliances_.size()) {
         std::cout << "Invalid station index! Use 0-" << appliances_.size()-1 << "\n";
         return;
