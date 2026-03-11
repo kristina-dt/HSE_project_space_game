@@ -22,22 +22,27 @@ GameEngine::GameEngine(){
         "------------------------------"
     };
 }
+
  void GameEngine::movements(InformationPlayer& player) {
-    float speed = 0.3f;
-    float nx = player.getX();
-    float ny = player.getY();
+    float speed = 0.1f;
+    float oldX = player.getX();
+    float oldY = player.getY();
+    float nextX = oldX;
+    float nextY = oldY;
 
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W)) ny -= speed;
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S)) ny += speed;
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)) nx -= speed;
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)) nx += speed;
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::W)) nextY -= speed;
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::S)) nextY += speed;
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::A)) nextX -= speed;
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::D)) nextX += speed;
 
-    if (ny >= 1.0f && ny < (float)map.size() - 1.0f &&
-        nx >= 1.0f && nx < (float)map[0].size() - 1.0f) {
-        if (map[(int)ny][(int)nx] == ' ') {
-            player.SetPosition(nx, ny);
-        }
+    if (map[(int)oldY][(int)nextX] == ' ') {
+        player.SetPosition(nextX, oldY);
     }
+    float currentX = player.getX();
+    if (map[(int)nextY][(int)currentX] == ' ') {
+        player.SetPosition(currentX, nextY);
+    }
+
 }
 
 void GameEngine::run(InformationPlayer& player) {
