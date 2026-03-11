@@ -15,9 +15,17 @@ InformationPlayer createPlayer() {
 
     return InformationPlayer(name, 5.0f, 5.0f);
 }
-void showPlayerStatus(const InformationPlayer& player) {
+void showPlayerStatus(const InformationPlayer& player, ProductionManager& manager) {
     std::cout << "\n======= PLAYER STATUS =======\n";
     player.print();
+    std::cout << "\n=== STATIONS ===\n";
+    for (size_t i = 0; i < manager.getCount(); ++i) {
+        Appliance* station = manager.getAppliance(i);
+        if (station) {
+            std::cout << "Station " << i << ": " << station->getType()
+                      << " (Level " << station->getLevel() << ")\n";
+        }
+    }
     std::cout << "==================================\n";
 }
 void AskStatus(const InformationPlayer& player,  ProductionManager& manager) {
@@ -26,15 +34,7 @@ void AskStatus(const InformationPlayer& player,  ProductionManager& manager) {
     std::cin >> answer;
     if (answer == "yes" || answer == "y") {
         std::cout << "\n======= CURRENT STATUS =======\n";
-        player.print();
-        std::cout << "\n=== STATIONS ===\n";
-        for (size_t i = 0; i < manager.getCount(); ++i) {
-            Appliance* station = manager.getAppliance(i);
-            if (station) {
-                std::cout << "Station " << i << ": " << station->getType()
-                          << " (Level " << station->getLevel() << ")\n";
-            }
-        }
+        showPlayerStatus(player, manager);
     }
     else if (answer == "no" || answer == "n") {
         std::cout<<"Status is hidden\n";
@@ -48,6 +48,8 @@ int main() {
     InformationPlayer player = createPlayer();
     ProductionManager manager;
     std::cout<<"=== INITIAL STATUS ===";
+    showPlayerStatus(player, manager);
+
     // InformationPlayer player("alex",5.0f, 5.0f);
     // GameEngine engine;
     //
