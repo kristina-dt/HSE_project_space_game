@@ -1,13 +1,14 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "Map.h"
+#include <iostream>
 
 class GameEngine {
     std::vector<std::string> map;
     bool keepRunning;
-    const int WIDTH = 30;
-    const int HEIGHT = 13;
-    const float CELL_SIZE = 32.0f;
+    const unsigned int WIDTH = 30;
+    const unsigned int  HEIGHT = 16;
+    const unsigned int  CELL_SIZE = 25;
 public:
     GameEngine();
     void run(InformationPlayer& player);

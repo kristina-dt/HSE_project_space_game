@@ -3,7 +3,7 @@
 #include <iostream>
 
 void Map::draw(sf::RenderWindow &window, const std::vector<std::string> &map, const InformationPlayer &player) {
-    float cellSize = 32.0f;
+    const float cellSize = 32.0f;
     sf::RectangleShape tile(sf::Vector2f(cellSize, cellSize));
 
     for (int y = 0; y < map.size(); ++y) {

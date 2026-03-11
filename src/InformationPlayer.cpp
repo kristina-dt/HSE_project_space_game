@@ -1,8 +1,7 @@
-
 #include "../include/InformationPlayer.h"
 #include "iostream"
 
-InformationPlayer::InformationPlayer(const std::string namepla) : name(namepla), wall(100) {
+InformationPlayer::InformationPlayer(const std::string &namepla, float px, float py): name(namepla), wall(100), posX(px), posY(py) {
     inventory.push_back({Resource::Type::Fuel, 5});
     inventory.push_back({Resource::Type::Food,7});
     inventory.push_back({Resource::Type::Drinks, 7});
@@ -14,8 +13,8 @@ InformationPlayer::InformationPlayer(const std::string namepla) : name(namepla),
     sellPrice[Resource::Type::Drinks] = 7;
     sellPrice[Resource::Type::Food] = 7;
     sellPrice[Resource::Type::Fuel] = 18;
-
 }
+
 
 std::string InformationPlayer::getName()const {
     return name;
