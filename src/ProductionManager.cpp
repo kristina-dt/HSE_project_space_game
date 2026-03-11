@@ -46,7 +46,7 @@ Position ProductionManager::getAppliancePosition(int index) const {
     return Position(-1, -1);
 }
 
-// Остальные методы без изменений...
+
 void ProductionManager::produceAll(Player& player) {
     std::cout << "\n🔨🔨🔨 PRODUCTION CYCLE 🔨🔨🔨\n";
 
