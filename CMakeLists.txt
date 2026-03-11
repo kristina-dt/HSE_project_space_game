@@ -13,4 +13,4 @@ add_executable(SpaceGame main.cpp
         include/wallet.h
         src/GameEngine.cpp
         include/GameEngine.h
-        )
+)
