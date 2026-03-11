@@ -2,6 +2,7 @@
 #include <iostream>
 #include "include/GameEngine.h"
 #include <string>
+#include <random>
 #include "include/InformationPlayer.h"
 #include "include/ProductionManager.h"
 InformationPlayer createPlayer() {
@@ -44,11 +45,13 @@ void AskStatus(const InformationPlayer& player,  ProductionManager& manager) {
 
 }
 int main() {
-    //InformationPlayer player = createPlayer();
-    InformationPlayer player("alex",5.0f, 5.0f);
-    GameEngine engine;
-
-    engine.run(player);
+    InformationPlayer player = createPlayer();
+    ProductionManager manager;
+    std::cout<<"=== INITIAL STATUS ===";
+    // InformationPlayer player("alex",5.0f, 5.0f);
+    // GameEngine engine;
+    //
+    // engine.run(player);
 
     return 0;
 }
