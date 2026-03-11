@@ -44,6 +44,7 @@ void AskStatus(const InformationPlayer& player,  ProductionManager& manager) {
 
 }
 int main() {
+    //InformationPlayer player = createPlayer();
     InformationPlayer player("alex",5.0f, 5.0f);
     GameEngine engine;
 
