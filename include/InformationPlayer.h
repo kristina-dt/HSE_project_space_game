@@ -18,8 +18,8 @@ private:
 public:
     InformationPlayer (const std::string& namepla, float px, float py);
     std::string getName()const;
-    float getX()const{return posX;};
-    float getY()const{return posY;};
+    constexpr float getX()const{return posX;};
+    constexpr float getY()const{return posY;};
     wallet& getWal();
     void SetPosition(int x, int y);
     int getAmountResource(Resource::Type type) const;
