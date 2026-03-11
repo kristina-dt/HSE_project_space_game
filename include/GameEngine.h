@@ -7,7 +7,7 @@ class GameEngine {
     std::vector<std::string> map;
     bool keepRunning;
     const unsigned int WIDTH = 30;
-    const unsigned int  HEIGHT = 16;
+    const unsigned int  HEIGHT = 25;
 public:
     static const unsigned int  CELL_SIZE = 32;
     GameEngine();
