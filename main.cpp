@@ -35,6 +35,13 @@ void AskStatus(const InformationPlayer& player,  ProductionManager& manager) {
             }
         }
     }
+    else if (answer == "no" || answer == "n") {
+        std::cout<<"Status is hidden\n";
+    }
+    else {
+        std::cout<<"Invalid input. Please enter yes or no.\n";
+    }
+
 }
 int main() {
     InformationPlayer player("alex",5.0f, 5.0f);
