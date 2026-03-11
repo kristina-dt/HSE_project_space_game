@@ -51,7 +51,6 @@ bool FoodAndDrinksStation::produce(InformationPlayer& player) {
     Resource::Type resourceType = getResourceType();
     std::string typeName = getModeName();
 
-    // Проверяем, может ли игрок заплатить
     Wallet& wallet = player.getWal();
     if (wallet.getAmount() < price) {
         std::cout << "Not enough money! Need " << price
@@ -59,10 +58,8 @@ bool FoodAndDrinksStation::produce(InformationPlayer& player) {
         return false;
     }
 
-    // Списываем деньги
     wallet.spend(price);
 
-    // Добавляем ресурс
     player.addResource(resourceType, 1);
 
     std::cout << "🍳 " << name_ << " (Lvl " << level_ << ") produced 1 " << typeName << "\n";
