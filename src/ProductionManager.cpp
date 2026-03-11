@@ -30,14 +30,6 @@ size_t ProductionManager::getCount() const {
     return appliances_.size();
 }
 
-std::optional<int> ProductionManager::findNearbyAppliance(float playerX, float playerY) const {
-    for (size_t i = 0; i < appliances_.size(); ++i) {
-        if (appliances_[i]->canInteract(playerX, playerY)) {
-            return static_cast<int>(i);
-        }
-    }
-    return std::nullopt;
-}
 
 Position ProductionManager::getAppliancePosition(int index) const {
     if (index >= 0 && index < static_cast<int>(appliances_.size())) {

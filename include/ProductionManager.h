@@ -3,7 +3,7 @@
 #include "Appliance.h"
 #include "FuelMaker.h"
 #include "PartAssembler.h"
-#include "Foodmaker.h"
+#include "FoodMaker.h"
 #include "InformationPlayer.h"
 #include <vector>
 #include <memory>
@@ -25,7 +25,6 @@ public:
     void configurePartAssembler(int index, int modeIndex);
     void configureFoodDrinksStation(int index, int modeIndex);
 
-    std::optional<int> findNearbyAppliance(float playerX, float playerY) const;
     Position getAppliancePosition(int index) const;
 
     std::string getProductName(int index) const;
