@@ -21,7 +21,7 @@ public:
     constexpr float getX()const{return posX;};
     constexpr float getY()const{return posY;};
     wallet& getWal();
-    void SetPosition(int x, int y);
+    void SetPosition(float x, float y);
     int getAmountResource(Resource::Type type) const;
     int getSellPrice(Resource::Type type) const;
     void print() const;

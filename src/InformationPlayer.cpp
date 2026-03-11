@@ -20,10 +20,11 @@ std::string InformationPlayer::getName()const {
     return name;
 }
 wallet& InformationPlayer::getWal() {return wall;}
-void InformationPlayer::SetPosition(int newx, int newy) {
-    posX = newx;
-    posY = newy;
+void InformationPlayer::SetPosition(float x, float y) {
+    posX = x;
+    posY = y;
 }
+
 int InformationPlayer::getAmountResource(Resource::Type type) const {
     for (const auto& res : inventory) {
         if (res.type == type) {
