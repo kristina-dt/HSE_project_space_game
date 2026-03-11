@@ -39,6 +39,7 @@ public:
     int getLevel() const { return level_; }
     std::string getName() const { return name_; }
     Position getPosition() const { return position_; }
+    int getCurrentPrice() const;
 
     bool canInteract(float playerX, float playerY, float distance = 2.0f) const {
         return position_.isNearby(playerX, playerY, distance);

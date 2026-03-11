@@ -11,6 +11,7 @@ public:
     std::string getType() const override;
     bool produce(InformationPlayer& player) override;
     int getUpgradeCost() const override;
+    int getCurrentPrice() const;
 
     int getFuelPrice() const;
 };

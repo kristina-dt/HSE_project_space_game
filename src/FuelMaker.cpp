@@ -6,9 +6,10 @@ FuelMaker::FuelMaker(int x, int y) {
     position_ = Position(x, y);
 }
 
-std::string FuelMaker::getType() const {
-    return "FuelMaker";
+int FuelMaker::getCurrentPrice() const {
+    return 20 + (level_ - 1) * 10;
 }
+
 
 int FuelMaker::getFuelPrice() const {
     return 20 + (level_ - 1) * 10;
