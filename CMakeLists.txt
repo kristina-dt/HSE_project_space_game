@@ -14,3 +14,6 @@ add_executable(SpaceGame main.cpp
         src/GameEngine.cpp
         include/GameEngine.h
 )
+
+target_include_directories(SpaceGame PUBLIC include)
+target_link_libraries(SpaceGame SFML::Graphics SFML::Window SFML::System)
