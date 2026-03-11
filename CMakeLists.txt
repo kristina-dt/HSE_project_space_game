@@ -20,6 +20,21 @@ add_executable(SpaceGame main.cpp
         include/GameEngine.h
         src/ProductionManager.cpp
         include/ProductionManager.h
+        src/Ship.cpp
+        include/Ship.h
+        src/ResourceOrder.cpp
+        include/ResourceOrder.h
+        src/PartAssembler.cpp
+        include/PartAssembler.h
+        src/Order.cpp
+        include/Order.h
+        src/FuelMaker.cpp
+        include/FuelMaker.h
+        src/FoodMaker.cpp
+        include/Foodmaker.h
+        src/Appliance.cpp
+        include/Appliance.h
+
 )
 
 target_include_directories(SpaceGame PUBLIC include)

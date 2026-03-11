@@ -5,7 +5,7 @@
 ProductionManager::ProductionManager() {
     std::unique_ptr<Appliance> maker = std::make_unique<FuelMaker>(5, 10);
     std::unique_ptr<Appliance> assembler = std::make_unique<PartAssembler>(8, 12);
-    std::unique_ptr<Appliance> food = std::make_unique<FoodAndDrinksStation>(3, 7);
+    std::unique_ptr<Appliance> food = std::make_unique<Foodmaker>(3, 7);
 
     appliances_.push_back(std::move(maker));
     appliances_.push_back(std::move(assembler));
@@ -30,7 +30,7 @@ size_t ProductionManager::getCount() const {
     return appliances_.size();
 }
 
-std::optional<int> ProductionManager::findNearbyAppliance(int playerX, int playerY) const {
+std::optional<int> ProductionManager::findNearbyAppliance(float playerX, float playerY) const {
     for (size_t i = 0; i < appliances_.size(); ++i) {
         if (appliances_[i]->canInteract(playerX, playerY)) {
             return static_cast<int>(i);
@@ -82,9 +82,8 @@ void ProductionManager::upgradeAppliance(size_t index, InformationPlayer& player
     std::cout << "   Upgrade cost: " << cost << " credits\n";
 
     try {
-        player.spendMoney(cost);
+        player.getWal().withdraw(cost);
         app->upgrade();
-
         std::cout << " Upgrade successful!\n";
         std::cout << "   New level: " << app->getLevel() << "\n";
         std::cout << "   New product price: " << getProductPrice(index) << " credits\n";
@@ -137,7 +136,7 @@ void ProductionManager::configureFoodDrinksStation(int index, int modeIndex) {
     }
 
     if (appliances_[index]->getType() == "FoodAndDrinksStation") {
-        FoodAndDrinksStation* station = static_cast<FoodAndDrinksStation*>(appliances_[index].get());
+        Foodmaker* station = static_cast<Foodmaker*>(appliances_[index].get());
 
         FoodDrinksMode mode;
         std::string modeName;
@@ -179,7 +178,7 @@ std::string ProductionManager::getProductName(int index) const {
         return assembler->getModeName();
     }
     else if (type == "FoodAndDrinksStation") {
-        const FoodAndDrinksStation* station = static_cast<const FoodAndDrinksStation*>(appliances_[index].get());
+        const Foodmaker* station = static_cast<const Foodmaker*>(appliances_[index].get());
         return station->getModeName();
     }
 
@@ -202,7 +201,7 @@ int ProductionManager::getProductPrice(int index) const {
         return assembler->getCurrentPrice();
     }
     else if (type == "FoodAndDrinksStation") {
-        const FoodAndDrinksStation* station = static_cast<const FoodAndDrinksStation*>(appliances_[index].get());
+        const Foodmaker* station = static_cast<const Foodmaker*>(appliances_[index].get());
         return station->getCurrentPrice();
     }
 

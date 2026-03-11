@@ -38,16 +38,17 @@ int PartAssembler::getCurrentPrice() const {
     }
 }
 
-bool PartAssembler::produce(Player& player) {
+bool PartAssembler::produce(InformationPlayer& player) {
     int price = getCurrentPrice();
+    Resource::Type resourceType = getResourceType();
     std::string productName = getModeName();
 
-    player.addResource(productName, 1);
+    player.addResource(resourceType, 1);
 
     std::cout << name_ << " (Lvl " << level_ << ") produced 1 " << productName << "\n";
     std::cout << "   Price: " << price << " credits\n";
     std::cout << "   Total " << productName << ": "
-              << player.getResourceAmount(productName) << "\n";
+              << player.getResourceAmount(resourceType) << "\n";
 
     return true;
 }
@@ -61,4 +62,8 @@ void PartAssembler::showAvailableModes() {
     std::cout << "0. Details (basic components)\n";
     std::cout << "1. Decorations (luxury items)\n";
     std::cout << "=======================\n";
+}
+
+Resource::Type PartAssembler::getResourceType() const {
+    return Resource::Type::Details;
 }

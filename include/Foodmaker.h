@@ -9,12 +9,12 @@ enum class FoodDrinksMode {
     Drinks
 };
 
-class FoodAndDrinksStation : public Appliance {
+class Foodmaker : public Appliance {
 private:
     FoodDrinksMode currentMode_ = FoodDrinksMode::Food;
 
 public:
-    FoodAndDrinksStation(int x, int y);
+    Foodmaker(int x, int y);
 
     std::string getType() const override;
     bool produce(InformationPlayer& player) override;

@@ -1,6 +1,4 @@
-//
-// Created by Greta Yugay on 11.03.2026.
-//
+#include "Order.h"
 class ResourceOrder final : public Order {
 private:
     Resource::Type resource_;
@@ -10,7 +8,7 @@ public:
     ResourceOrder(Resource::Type resource, int amount, int baseReward);
     std::string typeName() const override;
     std::string describe() const override;
-    int priority() const noexcept override;
+    int priority() const noexcept;
     int rewardMoney() const noexcept override;
 
     Resource::Type resourceType() const noexcept override;

@@ -1,6 +1,31 @@
 #include "../include/InformationPlayer.h"
 #include "iostream"
 
+void InformationPlayer::addResource(Resource::Type type, int amount) {
+    bool found = false;
+    for (auto& res : inventory) {
+        if (res.type == type) {
+            res.amount += amount;
+            found = true;
+            break;
+        }
+    }
+    if (!found) {
+        inventory.push_back({type, amount});
+    }
+}
+
+int InformationPlayer::getResourceAmount(Resource::Type type) const {
+    for (const auto& res : inventory) {
+        if (res.type == type) {
+            return res.amount;
+        }
+    }
+    return 0;
+}
+
+
+
 InformationPlayer::InformationPlayer(const std::string &namepla, float px, float py): name(namepla), wall(100), posX(px), posY(py) {
     inventory.push_back({Resource::Type::Fuel, 5});
     inventory.push_back({Resource::Type::Food,7});

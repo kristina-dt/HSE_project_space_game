@@ -1,25 +1,26 @@
-#include "../include/FoodAndDrinksStation.h"
+#include "../include/Foodmaker.h"
 #include <iostream>
+#include <wallet.h>
 
-FoodAndDrinksStation::FoodAndDrinksStation(int x, int y) {
+Foodmaker::Foodmaker(int x, int y) {
     name_ = "Food & Drinks Station";
     position_ = Position(x, y);
 }
 
-std::string FoodAndDrinksStation::getType() const {
+std::string Foodmaker::getType() const {
     return "FoodAndDrinksStation";
 }
 
-void FoodAndDrinksStation::setMode(FoodDrinksMode mode) {
+void Foodmaker::setMode(FoodDrinksMode mode) {
     currentMode_ = mode;
     std::cout << name_ << " switched to: " << getModeName() << "\n";
 }
 
-FoodDrinksMode FoodAndDrinksStation::getMode() const {
+FoodDrinksMode Foodmaker::getMode() const {
     return currentMode_;
 }
 
-std::string FoodAndDrinksStation::getModeName() const {
+std::string Foodmaker::getModeName() const {
     switch(currentMode_) {
         case FoodDrinksMode::Food: return "Food";
         case FoodDrinksMode::Drinks: return "Drinks";
@@ -27,7 +28,7 @@ std::string FoodAndDrinksStation::getModeName() const {
     }
 }
 
-Resource::Type FoodAndDrinksStation::getResourceType() const {
+Resource::Type Foodmaker::getResourceType() const {
     switch(currentMode_) {
         case FoodDrinksMode::Food: return Resource::Type::Food;
         case FoodDrinksMode::Drinks: return Resource::Type::Drinks;
@@ -35,7 +36,7 @@ Resource::Type FoodAndDrinksStation::getResourceType() const {
     }
 }
 
-int FoodAndDrinksStation::getCurrentPrice() const {
+int Foodmaker::getCurrentPrice() const {
     switch(currentMode_) {
         case FoodDrinksMode::Food:
             return 30 + (level_ - 1) * 12;
@@ -46,36 +47,36 @@ int FoodAndDrinksStation::getCurrentPrice() const {
     }
 }
 
-bool FoodAndDrinksStation::produce(InformationPlayer& player) {
+bool Foodmaker::produce(InformationPlayer& player) {
     int price = getCurrentPrice();
     Resource::Type resourceType = getResourceType();
     std::string typeName = getModeName();
 
-    Wallet& wallet = player.getWal();
-    if (wallet.getAmount() < price) {
+    wallet& wallet = player.getWal();
+    if (wallet.getBal() < price) {
         std::cout << "Not enough money! Need " << price
-                  << ", have " << wallet.getAmount() << "\n";
+                  << ", have " << wallet.getBal() << "\n";
         return false;
     }
 
-    wallet.spend(price);
+    wallet.withdraw(price);
 
     player.addResource(resourceType, 1);
 
     std::cout << "🍳 " << name_ << " (Lvl " << level_ << ") produced 1 " << typeName << "\n";
     std::cout << "   Price: " << price << " credits\n";
-    std::cout << "   Money left: " << wallet.getAmount() << "\n";
+    std::cout << "   Money left: " << wallet.getBal() << "\n";
     std::cout << "   Total " << typeName << ": "
               << player.getAmountResource(resourceType) << "\n";
 
     return true;
 }
 
-int FoodAndDrinksStation::getUpgradeCost() const {
+int Foodmaker::getUpgradeCost() const {
     return 180 * level_;
 }
 
-void FoodAndDrinksStation::showAvailableModes() {
+void Foodmaker::showAvailableModes() {
     std::cout << "\n=== Available Modes ===\n";
     std::cout << "0. Food\n";
     std::cout << "1. Drinks\n";

@@ -16,6 +16,8 @@ private:
     wallet wall;
     std::map<Resource::Type, int> sellPrice;
 public:
+    void addResource(Resource::Type type, int amount);
+    int getResourceAmount(Resource::Type type) const;
     InformationPlayer (const std::string& namepla, float px, float py);
     std::string getName()const;
     constexpr float getX()const{return posX;};
