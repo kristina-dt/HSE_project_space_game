@@ -23,7 +23,7 @@ bool FuelMaker::produce(InformationPlayer& player) {
 
     std::cout << name_ << " produced 1 unit of Fuel\n";
     std::cout << "   Price per unit: " << price << " credits\n";
-    std::cout << "   Total fuel: " << player.getResourceAmount(Resource::Fuel) << "\n";
+    std::cout << "   Total fuel: " << player.getAmountResource(Resource::Fuel) << "\n";
 
     return true;
 }
