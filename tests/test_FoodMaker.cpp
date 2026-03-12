@@ -2,6 +2,7 @@
 #include "Foodmaker.h"
 #include "InformationPlayer.h"
 #include <string>
+#include <NotEnoughMoney.h>
 
 class FoodmakerTest : public ::testing::Test {
 protected:
