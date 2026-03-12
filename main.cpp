@@ -247,16 +247,44 @@ bool upgradeStationByType(ProductionManager& productionManager, InformationPlaye
     std::cout << " Appliance of type " << stationType << " is not found!\n";
     return false;
 }
+void askUpgrade(ProductionManager& manager, InformationPlayer& player) {
+    std::cout << "\n==== UPGRADE AVAILABLE ====\n";
+    bool avai = false;
+    for (size_t i = 0; i < manager.getCount(); ++i) {
+        auto station = manager.getAppliance(i);
+        if (!station) continue;
+        int cost = station->getUpgradeCost();
+        int level = station->getLevel();
+        int balance = player.getWal().getBal();
+        if (balance >= cost && level < 50) {
+            avai = true;
+            std::cout << "Station " << i<< " (" << station->getType() << ") "<< "can be upgraded for "<< cost << " credits.\n";
+        }
+    }
+    if (!avai) {
+        std::cout << "No upgrades available right now.\n";
+        return;
+    }
+    std::cout << "\nDo you want to upgrade something? (yes/no): ";
+    std::string answer;
+    std::cin >> answer;
+    if (answer == "yes" || answer == "y") {
+        size_t index;
+        std::cout << "Enter station index to upgrade: ";
+        std::cin >> index;
+        upgradeStation(manager, player, index);
+    }
+}
 int main() {
-    // InformationPlayer player = createPlayer();
-    // ProductionManager manager;
-    // std::cout<<"=== INITIAL STATUS ===";
-    // showPlayerStatus(player, manager);
+    InformationPlayer player = createPlayer();
+    ProductionManager manager;
+    std::cout<<"=== INITIAL STATUS ===";
+    showPlayerStatus(player, manager);
+
+    // InformationPlayer player("alex",15.5f, 20.0f);
+    // GameEngine engine;
     //
-    InformationPlayer player("alex",15.5f, 20.0f);
-    GameEngine engine;
-    //
-    engine.run(player);
+    // engine.run(player);
 
     return 0;
 }
