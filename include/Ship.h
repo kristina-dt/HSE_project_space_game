@@ -17,15 +17,15 @@ private:
     std::optional<std::unique_ptr<Order>> order_;
 
 public:
-    static constexpr float START_X = 0.0f;
-    static constexpr float DOCK_X = 12.5f * 28.0f;;
+    static constexpr float START_X = 120.0f;
+    static constexpr float DOCK_X = 20.0f;;
     static constexpr float DEFAULT_SPEED = 2.0f;
 
     Ship();
     Ship(float startX, float y, float speed);
     Ship(float startX, float y, float speed, std::unique_ptr<Order> order);
 
-    void update(float station);
+    void update();
 
     bool isDocked() const noexcept;
     bool hasOrder() const noexcept;
