@@ -25,7 +25,7 @@ public:
     Ship(float startX, float y, float speed);
     Ship(float startX, float y, float speed, std::unique_ptr<Order> order);
 
-    void update();
+    void update(float station);
 
     bool isDocked() const noexcept;
     bool hasOrder() const noexcept;
