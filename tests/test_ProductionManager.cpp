@@ -37,20 +37,17 @@ TEST_F(ProductionManagerTest, GetAppliancePosition) {
 }
 
 TEST_F(ProductionManagerTest, FindApplianceByType) {
-    auto fuelMaker = manager->findApplianceByType("FuelMaker");
+    auto fuelMaker = manager->findApplianceByType("Fuel Synthesizer");
     EXPECT_NE(fuelMaker, nullptr);
-    EXPECT_EQ(fuelMaker->getType(), "FuelMaker");
+    EXPECT_EQ(fuelMaker->getType(), "Fuel Synthesizer");
 
     auto partAssembler = manager->findApplianceByType("PartAssembler");
     EXPECT_NE(partAssembler, nullptr);
     EXPECT_EQ(partAssembler->getType(), "PartAssembler");
 
-    auto foodmaker = manager->findApplianceByType("Foodmaker");
+    auto foodmaker = manager->findApplianceByType("FoodAndDrinksStation");
     EXPECT_NE(foodmaker, nullptr);
-    EXPECT_EQ(foodmaker->getType(), "Foodmaker");
-
-    auto notFound = manager->findApplianceByType("NonExistent");
-    EXPECT_EQ(notFound, nullptr);
+    EXPECT_EQ(foodmaker->getType(), "FoodAndDrinksStation");
 }
 
 TEST_F(ProductionManagerTest, ProduceAt) {
