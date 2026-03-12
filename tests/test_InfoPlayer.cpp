@@ -15,7 +15,14 @@ TEST(InformationPlayerTest, Constructor) {
 }
 TEST(InformationPlayerTest, ConstructorDefault) {
     InformationPlayer player("TestPlayer", 2.0f, 3.0f);
-
     EXPECT_EQ(player.getX(), 2.0f);
     EXPECT_EQ(player.getY(), 3.0f);
+}
+TEST(InformationPlayerTest, SellPrices) {
+    InformationPlayer player("TestPlayer", 0, 0);
+    EXPECT_EQ(player.getSellPrice(Resource::Type::Fuel), 18);
+    EXPECT_EQ(player.getSellPrice(Resource::Type::Food), 7);
+    EXPECT_EQ(player.getSellPrice(Resource::Type::Drinks), 7);
+    EXPECT_EQ(player.getSellPrice(Resource::Type::Details), 20);
+    EXPECT_EQ(player.getSellPrice(Resource::Type::Decorations), 45);
 }
