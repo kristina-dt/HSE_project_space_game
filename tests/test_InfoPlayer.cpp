@@ -13,3 +13,9 @@ TEST(InformationPlayerTest, Constructor) {
     EXPECT_EQ(player.getAmountResource(Resource::Type::Details), 5);
     EXPECT_EQ(player.getAmountResource(Resource::Type::Decorations), 0);
 }
+TEST(InformationPlayerTest, ConstructorDefault) {
+    InformationPlayer player("TestPlayer", 2.0f, 3.0f);
+
+    EXPECT_EQ(player.getX(), 2.0f);
+    EXPECT_EQ(player.getY(), 3.0f);
+}
