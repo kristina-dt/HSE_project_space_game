@@ -10,7 +10,7 @@ void Map::draw(sf::RenderWindow &window, const std::vector<std::string> &map, co
         for (int x = 0; x < map[y].size(); ++x) {
             tile.setPosition({x * cellSize, y * cellSize});
 
-            if (map[y][x] == '-' || map[y][x] == '|')
+            if (map[y][x] == '-' || map[y][x] == '|' || map[y][x] == '\' )
                 tile.setFillColor(sf::Color(100, 100, 100));
             else
                 tile.setFillColor(sf::Color::Black);

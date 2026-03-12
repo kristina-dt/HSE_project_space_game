@@ -18,7 +18,7 @@ private:
 
 public:
     static constexpr float START_X = 0.0f;
-    static constexpr float DOCK_X = 20.0f;
+    static constexpr float DOCK_X = 12.5f * 28.0f;;
     static constexpr float DEFAULT_SPEED = 2.0f;
 
     Ship();

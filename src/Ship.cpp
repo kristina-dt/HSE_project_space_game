@@ -24,10 +24,16 @@ Ship::Ship(float startX, float y, float speed, std::unique_ptr<Order> order)
 void Ship::update(float station) {
     if (!active_) return;
     if (hasOrder()) {
-        if (x_ > DOCK_X) x_ -= speed_;
-        else if (x_ < DOCK_X) x_ += speed_;
-        if (y_ < station) y_ += speed_;
-        else if (y_ > station) y_ -= speed_;
+        if (std::abs(x_ - station) > speed_) {
+            if (x_ > station) x_ -= speed_;
+            else if (x_ < station) x_ += speed_;
+        }
+
+        else {
+            x_ = station;
+            if (y_ < DOCK_X) y_ += speed_;
+            else if (y_ > DOCK_X) y_ -= speed_;
+        }
     }
 
     else {
