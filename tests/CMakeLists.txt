@@ -8,6 +8,8 @@ add_executable(SpaceGame_test
         test_InfoPlayer.cpp
         ../src/InformationPlayer.cpp
         ../include/NotEnoughMoney.h
+        test_Appliance.cpp
+        ../src/Appliance.cpp
 )
 target_link_libraries(SpaceGame_test
         GTest::gtest_main
