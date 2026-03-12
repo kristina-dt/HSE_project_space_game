@@ -40,8 +40,6 @@ void Ship::update(float station) {
             if (x_ <= START_X) movingRight_ = true;
         }
     }
-
-
 }
 
 bool Ship::isDocked() const noexcept {

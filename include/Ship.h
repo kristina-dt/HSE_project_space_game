@@ -13,11 +13,11 @@ private:
     float speed_;
     bool active_;
     bool movingRight_ = true;
-    float screenLimit_ = 800.0f;
+    float screenLimit_ = 900.0f;
     std::optional<std::unique_ptr<Order>> order_;
 
 public:
-    static constexpr float START_X = 120.0f;
+    static constexpr float START_X = 0.0f;
     static constexpr float DOCK_X = 20.0f;
     static constexpr float DEFAULT_SPEED = 2.0f;
 
