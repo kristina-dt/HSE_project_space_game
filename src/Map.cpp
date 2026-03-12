@@ -10,7 +10,7 @@ void Map::draw(sf::RenderWindow &window, const std::vector<std::string> &map, co
         for (int x = 0; x < map[y].size(); ++x) {
             tile.setPosition({x * cellSize, y * cellSize});
 
-            if (map[y][x] == '-' || map[y][x] == '|' || map[y][x] == '\' )
+            if (map[y][x] == '-' || map[y][x] == '|' || map[y][x] == '_' )
                 tile.setFillColor(sf::Color(100, 100, 100));
             else
                 tile.setFillColor(sf::Color::Black);
@@ -18,8 +18,23 @@ void Map::draw(sf::RenderWindow &window, const std::vector<std::string> &map, co
         }
     }
 
-    sf::RectangleShape shipShape(sf::Vector2f(cellSize - 8, cellSize / 2));
-    shipShape.setFillColor(sf::Color::Cyan);
+    sf::RectangleShape fmakerShape(sf::Vector2f(cellSize*2,cellSize*4));
+    fmakerShape.setFillColor(sf::Color::Blue);
+    fmakerShape.setPosition({1.0f * cellSize,18.0f * cellSize});
+    window.draw(fmakerShape);
+
+    sf::RectangleShape flmakerShape(sf::Vector2f(cellSize*2,cellSize*4));
+    flmakerShape.setFillColor(sf::Color(150, 75, 0));
+    flmakerShape.setPosition({29.0f * cellSize,16.0f * cellSize});
+    window.draw(flmakerShape);
+
+    sf::RectangleShape pmakerShape(sf::Vector2f(cellSize*4,cellSize*2));
+    pmakerShape.setFillColor(sf::Color(75, 0, 130));
+    pmakerShape.setPosition({22.0f * cellSize,22.0f * cellSize});
+    window.draw(pmakerShape);
+
+    sf::RectangleShape shipShape(sf::Vector2f(cellSize - 4, cellSize -8));
+    shipShape.setFillColor(sf::Color::Magenta);
 
     for (const auto& ship: ships) {
         if (ship.isActive()) {
