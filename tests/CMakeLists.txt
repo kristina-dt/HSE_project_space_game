@@ -3,6 +3,8 @@ add_executable(SpaceGame_test
         ../src/wallet.cpp
         test_ResourceOrder.cpp
         ../src/ResourceOrder.cpp
+        test_Ship.cpp
+        ../src/Ship.cpp
 )
 target_link_libraries(SpaceGame_test
         GTest::gtest_main
