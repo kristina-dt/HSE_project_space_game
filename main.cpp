@@ -171,10 +171,10 @@ int main() {
     std::cout<<"=== INITIAL STATUS ===";
     showPlayerStatus(player, manager);
 
-    // InformationPlayer player("alex",5.0f, 5.0f);
-    // GameEngine engine;
-    //
-    // engine.run(player);
+    //InformationPlayer player("alex",5.0f, 5.0f);
+    GameEngine engine;
+
+    engine.run(player);
 
     return 0;
 }
