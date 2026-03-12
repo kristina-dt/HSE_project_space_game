@@ -85,11 +85,12 @@ TEST_F(PartAssemblerTest, ProduceAfterUpgrade) {
     EXPECT_EQ(player->getAmountResource(Resource::Type::Details), initialDetails + 1);
 }
 
-TEST_F(PartAssemblerTest, GetResourceType) {
+TEST_F(PartAssemblerTest, GetResourceTypeReturnsCorrectType) {
+    assembler->setMode(PartAssemblerMode::Details);
     EXPECT_EQ(assembler->getResourceType(), Resource::Type::Details);
 
     assembler->setMode(PartAssemblerMode::Decorations);
-    EXPECT_EQ(assembler->getResourceType(), Resource::Type::Details);
+    EXPECT_EQ(assembler->getResourceType(), Resource::Type::Decorations);
 }
 
 TEST_F(PartAssemblerTest, ShowAvailableModes) {

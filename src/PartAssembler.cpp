@@ -65,5 +65,12 @@ void PartAssembler::showAvailableModes() {
 }
 
 Resource::Type PartAssembler::getResourceType() const {
-    return Resource::Type::Details;
+    switch(currentMode_) {
+        case PartAssemblerMode::Details:
+            return Resource::Type::Details;
+        case PartAssemblerMode::Decorations:
+            return Resource::Type::Decorations;
+        default:
+            return Resource::Type::Details;
+    }
 }
