@@ -1,6 +1,8 @@
 #include <gtest/gtest.h>
 #include "wallet.h"
 #include "NotEnoughMoney.h"
+#include <string>
+#include <sstream>
 TEST(WalletTest, ConstructorWithPositiveAmount) {
     wallet w(100);
     EXPECT_EQ(w.getBal(), 100);
@@ -64,4 +66,12 @@ TEST(WalletTest, ExceptionDoesNotChangeBalance) {
     } catch (const NotEnoughMoney&) {
     }
     EXPECT_EQ(w.getBal(), oldBalance);
+}
+TEST(WalletTest, OutputOperator) {
+    wallet w(150);
+    std::stringstream ss;
+    ss << w;
+    std::string line;
+    std::getline(ss,line);
+    EXPECT_EQ(line, "Wallet Balance: 150 credits");
 }
