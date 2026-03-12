@@ -79,3 +79,12 @@ TEST(InformationPlayerTest, GetWallet) {
     EXPECT_EQ(w.getBal(), 150);
     EXPECT_EQ(player.getWal().getBal(), 150);
 }
+TEST(InformationPlayerTest, ErrorChangeResources) {
+    InformationPlayer player("TestPlayer", 0, 0);
+    int bFuel = player.getAmountResource(Resource::Type::Fuel);
+    int bFood = player.getAmountResource(Resource::Type::Food);
+    player.sell(Resource::Type::Fuel, 100);
+    player.sell(Resource::Type::Food, 100);
+    EXPECT_EQ(player.getAmountResource(Resource::Type::Fuel), bFuel);
+    EXPECT_EQ(player.getAmountResource(Resource::Type::Food), bFood);
+}
