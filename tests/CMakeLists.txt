@@ -10,6 +10,8 @@ add_executable(SpaceGame_test
         ../include/NotEnoughMoney.h
         test_Appliance.cpp
         ../src/Appliance.cpp
+        test_FoodMaker.cpp
+        ../src/FoodMaker.cpp
 )
 target_link_libraries(SpaceGame_test
         GTest::gtest_main
