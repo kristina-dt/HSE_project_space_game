@@ -7,10 +7,6 @@ ProductionManager::ProductionManager() {
     appliances_.push_back(std::make_shared<PartAssembler>(8, 12));
     appliances_.push_back(std::make_shared<Foodmaker>(3, 7));
 
-    appliances_.push_back(std::move(maker));
-    appliances_.push_back(std::move(assembler));
-    appliances_.push_back(std::move(food));
-
     std::cout << "\nProduction Manager initialized with "
               << appliances_.size() << " appliances\n";
     std::cout << "   Station 0: Fuel Synthesizer at (5, 10)\n";
