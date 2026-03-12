@@ -57,3 +57,9 @@ TEST(InformationPlayerTest, SellResourceNotEnough) {
     EXPECT_FALSE(result);
     EXPECT_EQ(player.getAmountResource(Resource::Type::Fuel), initialFuel);
 }
+TEST(InformationPlayerTest, SellAllResources) {
+    InformationPlayer player("TestPlayer", 0, 0);
+    bool result = player.sell(Resource::Type::Fuel, 5);
+    EXPECT_TRUE(result);
+    EXPECT_EQ(player.getAmountResource(Resource::Type::Fuel), 0);
+}
