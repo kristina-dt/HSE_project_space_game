@@ -14,6 +14,10 @@ add_executable(SpaceGame_test
         ../src/FoodMaker.cpp
         test_FuelMaker.cpp
         ../src/FuelMaker.cpp
+        test_PartAssembler.cpp
+        ../src/PartAssembler.cpp
+        test_ProductionManager.cpp
+        ../src/ProductionManager.cpp
 )
 target_link_libraries(SpaceGame_test
         GTest::gtest_main
