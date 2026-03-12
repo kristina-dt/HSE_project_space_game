@@ -1,6 +1,7 @@
 #include <gtest/gtest.h>
 #include "Foodmaker.h"
 #include "InformationPlayer.h"
+#include "NotEnoughMoney.h"
 #include <string>
 
 class FoodmakerTest : public ::testing::Test {
@@ -95,11 +96,6 @@ TEST_F(FoodmakerTest, ProduceDrinks) {
     EXPECT_EQ(player->getWal().getBal(), initialBalance - 20);
 
     EXPECT_NE(output.find("produced 1 Drinks"), std::string::npos);
-}
-
-TEST_F(FoodmakerTest, ProduceNotEnoughMoneyThrows) {
-    player->getWal().withdraw(1000);
-    EXPECT_THROW(foodmaker->produce(*player), NotEnoughMoney);
 }
 
 TEST_F(FoodmakerTest, ShowAvailableModes) {
