@@ -71,7 +71,8 @@ TEST_F(FoodmakerTest, ProduceFood) {
     EXPECT_TRUE(result);
     EXPECT_EQ(player->getAmountResource(Resource::Type::Food), initialFood + 1);
     EXPECT_EQ(player->getWal().getBal(), initialBalance - 30);
-    EXPECT_THAT(output, testing::HasSubstr("produced 1 Food"));
+
+    EXPECT_NE(output.find("produced 1 Food"), std::string::npos);
 }
 
 TEST_F(FoodmakerTest, ProduceDrinks) {
@@ -87,7 +88,8 @@ TEST_F(FoodmakerTest, ProduceDrinks) {
     EXPECT_TRUE(result);
     EXPECT_EQ(player->getAmountResource(Resource::Type::Drinks), initialDrinks + 1);
     EXPECT_EQ(player->getWal().getBal(), initialBalance - 20);
-    EXPECT_THAT(output, testing::HasSubstr("produced 1 Drinks"));
+
+    EXPECT_NE(output.find("produced 1 Drinks"), std::string::npos);
 }
 
 TEST_F(FoodmakerTest, ProduceNotEnoughMoney) {
@@ -103,15 +105,15 @@ TEST_F(FoodmakerTest, ProduceNotEnoughMoney) {
     EXPECT_FALSE(result);
     EXPECT_EQ(player->getAmountResource(Resource::Type::Food), initialFood);
     EXPECT_EQ(player->getWal().getBal(), initialBalance);
-    EXPECT_THAT(output, testing::HasSubstr("Not enough money!"));
+    EXPECT_NE(output.find("Not enough money!"), std::string::npos);
 }
 
 TEST_F(FoodmakerTest, ShowAvailableModes) {
     testing::internal::CaptureStdout();
     Foodmaker::showAvailableModes();
     std::string output = testing::internal::GetCapturedStdout();
-    
-    EXPECT_THAT(output, testing::HasSubstr("=== Available Modes ==="));
-    EXPECT_THAT(output, testing::HasSubstr("0. Food"));
-    EXPECT_THAT(output, testing::HasSubstr("1. Drinks"));
+
+    EXPECT_NE(output.find("=== Available Modes ==="), std::string::npos);
+    EXPECT_NE(output.find("0. Food"), std::string::npos);
+    EXPECT_NE(output.find("1. Drinks"), std::string::npos);
 }
