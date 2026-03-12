@@ -14,3 +14,28 @@ TEST(PositionTest, IsNearby) {
     EXPECT_FALSE(pos.isNearby(8, 5, 2.0f));
     EXPECT_TRUE(pos.isNearby(10, 5, 5.0f));
 }
+class TestAppliance : public Appliance {
+public:
+    TestAppliance(std::string name, int x, int y) {
+        name_ = name;
+        position_ = Position(x, y);
+    }
+
+    std::string getType() const override { return "Test"; }
+    bool produce(InformationPlayer&) override { return true; }
+    int getUpgradeCost() const override { return 100; }
+    int getCurrentPrice() const { return 50; }
+};
+
+TEST(ApplianceFromCppTest, Upgrade) {
+    TestAppliance app("Fridge", 0, 0);
+
+    EXPECT_EQ(app.getLevel(), 1);
+
+    testing::internal::CaptureStdout();
+    app.upgrade();
+    std::string output = testing::internal::GetCapturedStdout();
+
+    EXPECT_EQ(app.getLevel(), 2);
+    EXPECT_EQ(output, "Fridge upgraded to level 2!\n");
+}
