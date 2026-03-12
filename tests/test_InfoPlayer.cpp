@@ -63,3 +63,11 @@ TEST(InformationPlayerTest, SellAllResources) {
     EXPECT_TRUE(result);
     EXPECT_EQ(player.getAmountResource(Resource::Type::Fuel), 0);
 }
+TEST(InformationPlayerTest, SetPosition) {
+    InformationPlayer player("TestPlayer", 10.5f, 20.5f);
+    EXPECT_EQ(player.getX(), 10.5f);
+    EXPECT_EQ(player.getY(), 20.5f);
+    player.SetPosition(30.5f, 40.5f);
+    EXPECT_EQ(player.getX(), 30.5f);
+    EXPECT_EQ(player.getY(), 40.5f);
+}
