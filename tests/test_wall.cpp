@@ -36,3 +36,23 @@ TEST(WalletTest, WithdrawMoreThanBalanceThrows) {
     EXPECT_THROW(w.withdraw(100), NotEnoughMoney);
     EXPECT_EQ(w.getBal(), 50);
 }
+TEST(WalletTest, WithdrawExceptionMessage) {
+    wallet w(30);
+    try {
+        w.withdraw(100);
+        FAIL() << "Expect NotEnoughMoney";
+    } catch (const NotEnoughMoney& e) {
+        std::string msg = e.what();
+        EXPECT_LT(msg.find("Need:100"), msg.length());
+        EXPECT_LT(msg.find("available: 30"), msg.length());
+    }
+}
+TEST(WalletTest, MultipleOperations) {
+    wallet w(100);
+    w.deposit(50);
+    w.withdraw(30);
+    w.deposit(80);
+    w.withdraw(70);
+    w.withdraw(30);
+    EXPECT_EQ(w.getBal(), 100);
+}
