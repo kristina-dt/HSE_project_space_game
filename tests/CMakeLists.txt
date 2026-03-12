@@ -8,5 +8,4 @@ target_include_directories(SpaceGame_test PRIVATE
 
 enable_testing()
 
-
 add_test(NAME SpaceGame_test COMMAND SpaceGame_test)
