@@ -15,14 +15,14 @@ void InformationPlayer::addResource(Resource::Type type, int amount) {
     }
 }
 
-int InformationPlayer::getResourceAmount(Resource::Type type) const {
-    for (const auto& res : inventory) {
-        if (res.type == type) {
-            return res.amount;
-        }
-    }
-    return 0;
-}
+// int InformationPlayer::getResourceAmount(Resource::Type type) const {
+//     for (const auto& res : inventory) {
+//         if (res.type == type) {
+//             return res.amount;
+//         }
+//     }
+//     return 0;
+// }
 
 
 

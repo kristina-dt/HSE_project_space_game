@@ -37,11 +37,11 @@ TEST(InformationPlayerTest, AddResource) {
 }
 TEST(InformationPlayerTest, GetResourceAmount) {
     InformationPlayer player("TestPlayer", 0, 0);
-    EXPECT_EQ(player.getResourceAmount(Resource::Type::Fuel), 5);
-    EXPECT_EQ(player.getResourceAmount(Resource::Type::Food), 7);
-    EXPECT_EQ(player.getResourceAmount(Resource::Type::Drinks), 7);
-    EXPECT_EQ(player.getResourceAmount(Resource::Type::Details), 5);
-    EXPECT_EQ(player.getResourceAmount(Resource::Type::Decorations), 0);
+    EXPECT_EQ(player.getAmountResource(Resource::Type::Fuel), 5);
+    EXPECT_EQ(player.getAmountResource(Resource::Type::Food), 7);
+    EXPECT_EQ(player.getAmountResource(Resource::Type::Drinks), 7);
+    EXPECT_EQ(player.getAmountResource(Resource::Type::Details), 5);
+    EXPECT_EQ(player.getAmountResource(Resource::Type::Decorations), 0);
 }
 TEST(InformationPlayerTest, SellResourceSu) {
     InformationPlayer player("TestPlayer", 0, 0);
