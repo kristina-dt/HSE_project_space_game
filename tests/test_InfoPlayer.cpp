@@ -26,3 +26,12 @@ TEST(InformationPlayerTest, SellPrices) {
     EXPECT_EQ(player.getSellPrice(Resource::Type::Details), 20);
     EXPECT_EQ(player.getSellPrice(Resource::Type::Decorations), 45);
 }
+TEST(InformationPlayerTest, AddResource) {
+    InformationPlayer player("TestPlayer", 0, 0);
+    player.addResource(Resource::Type::Fuel, 3);
+    EXPECT_EQ(player.getAmountResource(Resource::Type::Fuel), 8);
+    player.addResource(Resource::Type::Fuel, 2);
+    EXPECT_EQ(player.getAmountResource(Resource::Type::Fuel), 10);
+    player.addResource(Resource::Type::Food, 5);
+    EXPECT_EQ(player.getAmountResource(Resource::Type::Food), 12);
+}
