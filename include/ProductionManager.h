@@ -3,7 +3,7 @@
 #include "Appliance.h"
 #include "FuelMaker.h"
 #include "PartAssembler.h"
-#include "FoodMaker.h"
+#include "Foodmaker.h"
 #include "InformationPlayer.h"
 #include <vector>
 #include <memory>
