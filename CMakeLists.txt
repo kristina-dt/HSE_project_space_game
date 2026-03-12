@@ -1,9 +1,11 @@
 cmake_minimum_required(VERSION 3.20)
+cmake_policy(SET CMP0135 NEW)
 project(HSE_project_space_game)
 set(CMAKE_CXX_STANDARD 23)
 
 list(APPEND CMAKE_PREFIX_PATH "/opt/homebrew")
 find_package(SFML 3 COMPONENTS Graphics Window System REQUIRED)
+
 
 add_subdirectory(src)
 include_directories(include)
@@ -34,8 +36,18 @@ add_executable(SpaceGame main.cpp
         include/Foodmaker.h
         src/Appliance.cpp
         include/Appliance.h
+        tests/test_wall.cpp
 
 )
 
 target_include_directories(SpaceGame PUBLIC include)
 target_link_libraries(SpaceGame SFML::Graphics SFML::Window SFML::System)
+include(FetchContent)
+FetchContent_Declare(
+        googletest
+        URL https://github.com/google/googletest/archive/refs/heads/main.zip
+
+)
+set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+FetchContent_MakeAvailable(googletest)
+add_subdirectory(tests)
