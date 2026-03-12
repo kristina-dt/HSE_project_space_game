@@ -56,3 +56,12 @@ TEST(WalletTest, MultipleOperations) {
     w.withdraw(30);
     EXPECT_EQ(w.getBal(), 100);
 }
+TEST(WalletTest, ExceptionDoesNotChangeBalance) {
+    wallet w(75);
+    int oldBalance = w.getBal();
+    try {
+        w.withdraw(100);
+    } catch (const NotEnoughMoney&) {
+    }
+    EXPECT_EQ(w.getBal(), oldBalance);
+}
