@@ -88,3 +88,21 @@ TEST(InformationPlayerTest, ErrorChangeResources) {
     EXPECT_EQ(player.getAmountResource(Resource::Type::Fuel), bFuel);
     EXPECT_EQ(player.getAmountResource(Resource::Type::Food), bFood);
 }
+TEST(InformationPlayerTest, PrintDoesntCrash) {
+    InformationPlayer player("TestPlayer", 10.5f, 20.5f);
+    player.print();
+    EXPECT_TRUE(true);
+}
+TEST(InformationPlayerTest, AllMethods) {
+    InformationPlayer player("TestPlayer", 0, 0);
+    player.addResource(Resource::Type::Fuel, 10);
+    EXPECT_EQ(player.getAmountResource(Resource::Type::Fuel), 15);
+    bool sold = player.sell(Resource::Type::Fuel, 5);
+    EXPECT_TRUE(sold);
+    EXPECT_EQ(player.getAmountResource(Resource::Type::Fuel), 10);
+    player.SetPosition(100, 200);
+    EXPECT_EQ(player.getX(), 100);
+    EXPECT_EQ(player.getY(), 200);
+    player.getWal().deposit(50);
+    EXPECT_EQ(player.getWal().getBal(), 150);
+}
