@@ -35,6 +35,16 @@ void Ship::update(float station) {
     } else {
         x_ = station;
     }
+
+    if (std::abs(y_ - station) > speed_) {
+        if (y_ < station) {
+            y_ += speed_;
+        } else if (y_ > station) {
+            y_ -= speed_;
+        }
+    } else {
+        y_ = station;
+    }
 }
 
 bool Ship::isDocked() const noexcept {
