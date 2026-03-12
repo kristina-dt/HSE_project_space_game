@@ -261,6 +261,38 @@ bool upgradeStationByType(ProductionManager& productionManager, InformationPlaye
     std::cout << " Appliance of type " << stationType << " is not found!\n";
     return false;
 }
+void askForUpgrade(ProductionManager& manager, InformationPlayer& player) {
+    std::cout << "\n=== UPGRADE AVAILABLE ===\n";
+
+    bool avai = false;
+    for (size_t i = 0; i < manager.getCount(); ++i) {
+        auto station = manager.getAppliance(i);
+        if (!station) continue;
+        int cost = station->getUpgradeCost();
+        int level = station->getLevel();
+        int balance = player.getWal().getBal();
+        if (balance >= cost && level < 10) {
+            avai = true;
+            std::cout << "Station " << i
+                      << " (" << station->getType() << ") "
+                      << "can be upgraded for "
+                      << cost << " credits.\n";
+        }
+    }
+    if (!avai) {
+        std::cout << "No upgrades available right now.\n";
+        return;
+    }
+    std::cout << "\nDo you want to upgrade something? (yes/no): ";
+    std::string answer;
+    std::cin >> answer;
+    if (answer == "yes" || answer == "y") {
+        size_t index;
+        std::cout << "Enter station index to upgrade: ";
+        std::cin >> index;
+        upgradeStation(manager, player, index);
+    }
+}
 int main() {
     InformationPlayer player = createPlayer();
     ProductionManager manager;
@@ -275,6 +307,7 @@ int main() {
         );
 
         processOrder(player, manager, ship, i);
+        askForUpgrade(manager, player);
     }
 
     std::cout << "\n=== FINAL STATUS ===\n";
