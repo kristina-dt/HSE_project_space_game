@@ -3,6 +3,7 @@
 #include "InformationPlayer.h"
 #include "NotEnoughMoney.h"
 #include <string>
+#include <NotEnoughMoney.h>
 
 class FoodmakerTest : public ::testing::Test {
 protected:
