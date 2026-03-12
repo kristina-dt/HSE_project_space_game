@@ -43,3 +43,10 @@ TEST(InformationPlayerTest, GetResourceAmount) {
     EXPECT_EQ(player.getResourceAmount(Resource::Type::Details), 5);
     EXPECT_EQ(player.getResourceAmount(Resource::Type::Decorations), 0);
 }
+TEST(InformationPlayerTest, SellResourceSu) {
+    InformationPlayer player("TestPlayer", 0, 0);
+    int initialFuel = player.getAmountResource(Resource::Type::Fuel);
+    bool result = player.sell(Resource::Type::Fuel, 3);
+    EXPECT_TRUE(result);
+    EXPECT_EQ(player.getAmountResource(Resource::Type::Fuel), initialFuel - 3);
+}
