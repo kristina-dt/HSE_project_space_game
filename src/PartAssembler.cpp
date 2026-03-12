@@ -48,7 +48,7 @@ bool PartAssembler::produce(InformationPlayer& player) {
     std::cout << name_ << " (Lvl " << level_ << ") produced 1 " << productName << "\n";
     std::cout << "   Price: " << price << " credits\n";
     std::cout << "   Total " << productName << ": "
-              << player.getResourceAmount(resourceType) << "\n";
+              << player.getAmountResource(resourceType) << "\n";
 
     return true;
 }
