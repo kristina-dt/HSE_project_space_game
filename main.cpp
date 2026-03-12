@@ -3,6 +3,8 @@
 #include "include/GameEngine.h"
 #include <string>
 #include <random>
+
+#include "ResourceOrder.h"
 #include "include/InformationPlayer.h"
 #include "include/ProductionManager.h"
 #include "include/NotEnoughMoney.h"
@@ -44,6 +46,18 @@ void AskStatus(const InformationPlayer& player,  ProductionManager& manager) {
         std::cout<<"Invalid input. Please enter yes or no.\n";
     }
 
+}
+std::unique_ptr<Order> generateRandomOrder() {
+    static std::mt19937 rng(std::random_device{}());
+
+    std::uniform_int_distribution<int> resourceDist(0, 4);
+    std::uniform_int_distribution<int> amountDist(1, 5);
+
+    Resource::Type type = static_cast<Resource::Type>(resourceDist(rng));
+    int amount = amountDist(rng);
+    int reward = amount * 20 + 10;
+
+    return std::make_unique<ResourceOrder>(type, amount, reward);
 }
 std::string getOrderTitle(int orderNumber) {
     switch (orderNumber) {
@@ -248,15 +262,28 @@ bool upgradeStationByType(ProductionManager& productionManager, InformationPlaye
     return false;
 }
 int main() {
-    // InformationPlayer player = createPlayer();
-    // ProductionManager manager;
-    // std::cout<<"=== INITIAL STATUS ===";
-    // showPlayerStatus(player, manager);
-    //
-    InformationPlayer player("alex",15.5f, 20.0f);
-    GameEngine engine;
-    //
-    engine.run(player);
+    InformationPlayer player = createPlayer();
+    ProductionManager manager;
+    std::cout<<"=== INITIAL STATUS ===";
+    showPlayerStatus(player, manager);
+    for (int i = 1; i <= 3; ++i) {
+        Ship ship(
+            Ship::START_X,
+            5.0f,
+            Ship::DEFAULT_SPEED,
+            generateRandomOrder()
+        );
+
+        processOrder(player, manager, ship, i);
+    }
+
+    std::cout << "\n=== FINAL STATUS ===\n";
+    showPlayerStatus(player, manager);
+
+    std::cout << "\nGame finished.\n";
+    // InformationPlayer player("alex",15.5f, 20.0f);
+    // GameEngine engine;
+    // engine.run(player);
 
     return 0;
 }
