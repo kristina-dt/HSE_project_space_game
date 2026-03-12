@@ -5,6 +5,7 @@
 #include <random>
 #include "include/InformationPlayer.h"
 #include "include/ProductionManager.h"
+#include "include/NotEnoughMoney.h"
 InformationPlayer createPlayer() {
     std::string name;
     std::cout << "=== CHARACTER CREATION ===\n";
