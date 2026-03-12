@@ -2,32 +2,35 @@
 
 GameEngine::GameEngine(){
     keepRunning=true;
+    ships_.emplace_back(140.0f, 100.0f, 2.0f);
+    ships_.emplace_back(100.0f, 196.0f, 1.5f);
+    ships_.emplace_back(196.0f, 252.0f, 3.0f);
     map = {
-        "------------------------",
-        "|                      |",
-        "|                      |",
-        "|                      |",
-        "|                      |",
-        "|                      |",
-        "|                      |",
-        "|                      |",
-        "|                      |",
-        "|                      |",
-        "|                      |",
-        "|  |  |   |  |   |  |  |",
-        "|--|  |---|  |---|  |--|",
-        "|                      |",
-        "|                      |",
-        "|                      |",
-        "|                      |",
-        "|                      |",
-        "|                      |",
-        "|                      |",
-        "|                      |",
-        "|                      |",
-        "|                      |",
-        "|                      |",
-        "------------------------"
+        "--------------------------------",
+        "|                              |",
+        "|                              |",
+        "|                              |",
+        "|                              |",
+        "|                              |",
+        "|                              |",
+        "|                              |",
+        "|                              |",
+        "|                              |",
+        "|                              |",
+        "|                              |",
+        "|  |  |   |  |   |  |   |  |   |",
+        "|--|  |---|  |---|  |---|  |---|",
+        "|                              |",
+        "|                              |",
+        "|                              |",
+        "|                              |",
+        "|                              |",
+        "|                              |",
+        "|                              |",
+        "|                              |",
+        "|                              |",
+        "|                              |",
+        "--------------------------------"
     };
 }
 
@@ -64,8 +67,12 @@ void GameEngine::run(InformationPlayer& player) {
             }
         }
         movements(player);
+        const float station = 11 * 28.0f;
+        for (auto& ship : ships_) {
+            ship.update(station);
+        }
         window.clear(sf::Color::Black);
-        Map::draw(window, map, player);
+        Map::draw(window, map, player, ships_);
         window.display();
     }
 }

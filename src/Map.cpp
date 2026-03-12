@@ -2,7 +2,7 @@
 #include "GameEngine.h"
 #include <iostream>
 
-void Map::draw(sf::RenderWindow &window, const std::vector<std::string> &map, const InformationPlayer &player) {
+void Map::draw(sf::RenderWindow &window, const std::vector<std::string> &map, const InformationPlayer &player, const std::vector<Ship>& ships) {
     const float cellSize = 28.0f;
     sf::RectangleShape tile(sf::Vector2f(cellSize, cellSize));
 
@@ -14,13 +14,22 @@ void Map::draw(sf::RenderWindow &window, const std::vector<std::string> &map, co
                 tile.setFillColor(sf::Color(100, 100, 100));
             else
                 tile.setFillColor(sf::Color::Black);
-
             window.draw(tile);
         }
     }
 
+    sf::RectangleShape shipShape(sf::Vector2f(cellSize - 8, cellSize / 2));
+    shipShape.setFillColor(sf::Color::Cyan);
+
+    for (const auto& ship: ships) {
+        if (ship.isActive()) {
+            shipShape.setPosition({ship.getX(), ship.getY()});
+            window.draw(shipShape);
+        }
+    }
+
     sf::RectangleShape pShape(sf::Vector2f( cellSize - 4, cellSize - 4));
-    pShape.setFillColor(sf::Color::Green);
+    pShape.setFillColor(sf::Color::White);
     pShape.setPosition({player.getX() * cellSize + 2, player.getY() * cellSize + 2});
     window.draw(pShape);
 }

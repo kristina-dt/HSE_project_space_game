@@ -8,8 +8,9 @@ class GameEngine {
     bool keepRunning;
     const unsigned int WIDTH = 30;
     const unsigned int  HEIGHT = 25;
+    std::vector<Ship> ships_;
 public:
-    static const unsigned int  CELL_SIZE = 32;
+    static const unsigned int  CELL_SIZE = 30;
     GameEngine();
     void run(InformationPlayer& player);
     void movements(InformationPlayer& player);
