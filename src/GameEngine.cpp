@@ -57,12 +57,9 @@ void GameEngine::run(InformationPlayer& player) {
     sf::RenderWindow window(sf::VideoMode({WIDTH * CELL_SIZE, HEIGHT * CELL_SIZE}), "SpaceGame");
     window.setFramerateLimit(60);
 
-    std::cout << "Window created! Starting loop..." << std::endl;
-
     while (window.isOpen() && keepRunning) {
         while (const std::optional event = window.pollEvent()) {
             if (event->is<sf::Event::Closed>()) {
-                std::cout << "Closing window..." << std::endl;
                 window.close();
             }
         }
@@ -71,7 +68,6 @@ void GameEngine::run(InformationPlayer& player) {
         Map::draw(window, map, player);
         window.display();
     }
-    std::cout << "Loop finished! Window was open: " << window.isOpen() << std::endl;
 }
 
 

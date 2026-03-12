@@ -21,17 +21,27 @@ Ship::Ship(float startX, float y, float speed, std::unique_ptr<Order> order)
       active_(true),
       order_(std::move(order)) {}
 
-void Ship::update() {
-    if (!active_) {
-        return;
+void Ship::update(float station) {
+    if (!active_) return;
+    if (hasOrder()) {
+        if (x_ > DOCK_X) x_ -= speed_;
+        else if (x_ < DOCK_X) x_ += speed_;
+        if (y_ < station) y_ += speed_;
+        else if (y_ > station) y_ -= speed_;
     }
 
-    if (x_ > DOCK_X) {
-        x_ -= speed_;
-        if (x_ < DOCK_X) {
-            x_ = DOCK_X;
+    else {
+        if (movingRight_) {
+            x_ += speed_;
+            if (x_ >= screenLimit_) movingRight_ = false;
+        }
+        else {
+            x_ -= speed_;
+            if (x_ <= START_X) movingRight_ = true;
         }
     }
+
+
 }
 
 bool Ship::isDocked() const noexcept {
