@@ -1,6 +1,8 @@
 add_executable(SpaceGame_test
         test_wall.cpp
         ../src/wallet.cpp
+        test_ResourceOrder.cpp
+        ../src/ResourceOrder.cpp
 )
 target_link_libraries(SpaceGame_test
         GTest::gtest_main
