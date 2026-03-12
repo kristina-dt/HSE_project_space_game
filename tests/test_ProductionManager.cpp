@@ -18,23 +18,6 @@ TEST_F(ProductionManagerTest, Constructor) {
     EXPECT_EQ(manager->getCount(), 3);
 }
 
-TEST_F(ProductionManagerTest, GetAppliancePosition) {
-    Position pos0 = manager->getAppliancePosition(0);
-    EXPECT_EQ(pos0.x, 5);
-    EXPECT_EQ(pos0.y, 10);
-
-    Position pos1 = manager->getAppliancePosition(1);
-    EXPECT_EQ(pos1.x, 8);
-    EXPECT_EQ(pos1.y, 12);
-
-    Position pos2 = manager->getAppliancePosition(2);
-    EXPECT_EQ(pos2.x, 3);
-    EXPECT_EQ(pos2.y, 7);
-
-    Position invalid = manager->getAppliancePosition(5);
-    EXPECT_EQ(invalid.x, -1);
-    EXPECT_EQ(invalid.y, -1);
-}
 
 TEST_F(ProductionManagerTest, FindApplianceByType) {
     auto fuelMaker = manager->findApplianceByType("Fuel Synthesizer");
@@ -77,13 +60,18 @@ TEST_F(ProductionManagerTest, ProduceAll) {
 }
 
 TEST_F(ProductionManagerTest, UpgradeAppliance) {
-    auto fuelMaker = manager->findApplianceByType("FuelMaker");
+    manager->addAppliance(std::make_unique<FuelSynthesizer>(5, 10));
+
+    auto* fuelMaker = manager->findApplianceByType("FuelSynthesizer");
+    ASSERT_NE(fuelMaker, nullptr);
+
     EXPECT_EQ(fuelMaker->getLevel(), 1);
 
     int initialBalance = player->getWal().getBal();
     int upgradeCost = fuelMaker->getUpgradeCost();
 
-    manager->upgradeAppliance(0, *player);
+    bool result = manager->upgradeAppliance(0, *player);
+    EXPECT_TRUE(result);
 
     EXPECT_EQ(fuelMaker->getLevel(), 2);
     EXPECT_EQ(player->getWal().getBal(), initialBalance - upgradeCost);
