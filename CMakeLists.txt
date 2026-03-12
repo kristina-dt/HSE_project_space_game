@@ -42,7 +42,7 @@ add_executable(SpaceGame main.cpp
         src/FuelMaker.cpp
         include/FuelMaker.h
         src/FoodMaker.cpp
-        include/Foodmaker.h
+        include/FoodMaker.h
         src/Appliance.cpp
         include/Appliance.h
 
