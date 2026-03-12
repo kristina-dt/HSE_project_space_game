@@ -1,6 +1,7 @@
 #include <gtest/gtest.h>
 #include "Foodmaker.h"
 #include "InformationPlayer.h"
+#include <string>
 
 class FoodmakerTest : public ::testing::Test {
 protected:
@@ -39,17 +40,21 @@ TEST_F(FoodmakerTest, ModeMethods) {
 
 TEST_F(FoodmakerTest, CurrentPrice) {
     EXPECT_EQ(foodmaker->getCurrentPrice(), 30);
+
     foodmaker->setMode(FoodDrinksMode::Drinks);
     EXPECT_EQ(foodmaker->getCurrentPrice(), 20);
 
     foodmaker->upgrade();
-    EXPECT_EQ(foodmaker->getCurrentPrice(), 42);
-    
-    foodmaker->setMode(FoodDrinksMode::Drinks);
+
     EXPECT_EQ(foodmaker->getCurrentPrice(), 28);
+    foodmaker->setMode(FoodDrinksMode::Food);
+    EXPECT_EQ(foodmaker->getCurrentPrice(), 42);
 
     foodmaker->upgrade();
+
     EXPECT_EQ(foodmaker->getCurrentPrice(), 54);
+    foodmaker->setMode(FoodDrinksMode::Drinks);
+    EXPECT_EQ(foodmaker->getCurrentPrice(), 36);
 }
 
 TEST_F(FoodmakerTest, UpgradeCost) {
@@ -92,20 +97,9 @@ TEST_F(FoodmakerTest, ProduceDrinks) {
     EXPECT_NE(output.find("produced 1 Drinks"), std::string::npos);
 }
 
-TEST_F(FoodmakerTest, ProduceNotEnoughMoney) {
+TEST_F(FoodmakerTest, ProduceNotEnoughMoneyThrows) {
     player->getWal().withdraw(1000);
-    
-    int initialFood = player->getAmountResource(Resource::Type::Food);
-    int initialBalance = player->getWal().getBal();
-    
-    testing::internal::CaptureStdout();
-    bool result = foodmaker->produce(*player);
-    std::string output = testing::internal::GetCapturedStdout();
-    
-    EXPECT_FALSE(result);
-    EXPECT_EQ(player->getAmountResource(Resource::Type::Food), initialFood);
-    EXPECT_EQ(player->getWal().getBal(), initialBalance);
-    EXPECT_NE(output.find("Not enough money!"), std::string::npos);
+    EXPECT_THROW(foodmaker->produce(*player), NotEnoughMoney);
 }
 
 TEST_F(FoodmakerTest, ShowAvailableModes) {
