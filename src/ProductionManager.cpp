@@ -3,9 +3,9 @@
 
 
 ProductionManager::ProductionManager() {
-    std::unique_ptr<Appliance> maker = std::make_unique<FuelMaker>(5, 10);
-    std::unique_ptr<Appliance> assembler = std::make_unique<PartAssembler>(8, 12);
-    std::unique_ptr<Appliance> food = std::make_unique<Foodmaker>(3, 7);
+    appliances_.push_back(std::make_shared<FuelMaker>(5, 10));
+    appliances_.push_back(std::make_shared<PartAssembler>(8, 12));
+    appliances_.push_back(std::make_shared<Foodmaker>(3, 7));
 
     appliances_.push_back(std::move(maker));
     appliances_.push_back(std::move(assembler));
@@ -18,13 +18,15 @@ ProductionManager::ProductionManager() {
     std::cout << "   Station 2: Food & Drinks Station at (3, 7)\n";
 }
 
-Appliance* ProductionManager::getAppliance(int index) {
-    if (index >= 0 && index < static_cast<int>(appliances_.size())) {
-        return appliances_[index].get();
+std::shared_ptr<Appliance> ProductionManager::findApplianceByType(const std::string& type) {
+    for (auto& appliance : appliances_) {
+        if (appliance->getType() == type) {
+            return appliance;
+        }
     }
-    std::cout << "Invalid appliance index! Use 0-" << appliances_.size()-1 << "\n";
     return nullptr;
 }
+
 
 size_t ProductionManager::getCount() const {
     return appliances_.size();
@@ -40,7 +42,7 @@ Position ProductionManager::getAppliancePosition(int index) const {
 
 
 void ProductionManager::produceAll(InformationPlayer& player) {
-    std::cout << "\n🔨🔨🔨 PRODUCTION CYCLE 🔨🔨🔨\n";
+    std::cout << "\n PRODUCTION CYCLE \n";
 
     for (size_t i = 0; i < appliances_.size(); ++i) {
         std::cout << "\n▶ Station #" << i << " (" << appliances_[i]->getType() << "):\n";

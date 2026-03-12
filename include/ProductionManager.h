@@ -12,11 +12,11 @@
 
 class ProductionManager {
 private:
-    std::vector<std::unique_ptr<Appliance>> appliances_;
+    std::vector<std::shared_ptr<Appliance>> appliances_;
 
 public:
     ProductionManager();
-    Appliance* getAppliance(int index);
+    std::shared_ptr<Appliance> getAppliance(int index);
     size_t getCount() const;
     void showAllAppliances() const;
     void produceAll(InformationPlayer& player);
@@ -26,7 +26,8 @@ public:
     void configureFoodDrinksStation(int index, int modeIndex);
 
     Position getAppliancePosition(int index) const;
-
     std::string getProductName(int index) const;
     int getProductPrice(int index) const;
+
+    std::shared_ptr<Appliance> findApplianceByType(const std::string& type);
 };
