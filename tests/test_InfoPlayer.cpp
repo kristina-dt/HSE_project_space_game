@@ -71,3 +71,11 @@ TEST(InformationPlayerTest, SetPosition) {
     EXPECT_EQ(player.getX(), 30.5f);
     EXPECT_EQ(player.getY(), 40.5f);
 }
+TEST(InformationPlayerTest, GetWallet) {
+    InformationPlayer player("TestPlayer", 0, 0);
+    wallet& w = player.getWal();
+    EXPECT_EQ(w.getBal(), 100);
+    w.deposit(50);
+    EXPECT_EQ(w.getBal(), 150);
+    EXPECT_EQ(player.getWal().getBal(), 150);
+}
