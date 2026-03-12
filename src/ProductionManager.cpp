@@ -28,7 +28,12 @@ size_t ProductionManager::getCount() const {
     return appliances_.size();
 }
 
-
+std::shared_ptr<Appliance> ProductionManager::getAppliance(int index) {
+    if (index < 0 || index >= static_cast<int>(appliances_.size())) {
+        return nullptr;
+    }
+    return appliances_[index];
+}
 Position ProductionManager::getAppliancePosition(int index) const {
     if (index >= 0 && index < static_cast<int>(appliances_.size())) {
         return appliances_[index]->getPosition();
