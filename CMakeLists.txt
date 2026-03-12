@@ -4,15 +4,7 @@ set(CMAKE_CXX_STANDARD 23)
 
 list(APPEND CMAKE_PREFIX_PATH "/opt/homebrew")
 find_package(SFML 3 COMPONENTS Graphics Window System REQUIRED)
-include(FetchContent)
-FetchContent_Declare(
-        googletest
-        URL https://github.com/google/googletest/archive/refs/heads/main.zip
 
-)
-set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
-FetchContent_MakeAvailable(googletest)
-add_subdirectory(tests)
 
 add_subdirectory(src)
 include_directories(include)
@@ -49,3 +41,12 @@ add_executable(SpaceGame main.cpp
 
 target_include_directories(SpaceGame PUBLIC include)
 target_link_libraries(SpaceGame SFML::Graphics SFML::Window SFML::System)
+include(FetchContent)
+FetchContent_Declare(
+        googletest
+        URL https://github.com/google/googletest/archive/refs/heads/main.zip
+
+)
+set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+FetchContent_MakeAvailable(googletest)
+add_subdirectory(tests)
