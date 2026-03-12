@@ -1,5 +1,6 @@
 #include <gtest/gtest.h>
 #include "wallet.h"
+#include "NotEnoughMoney.h"
 TEST(WalletTest, ConstructorWithPositiveAmount) {
     wallet w(100);
     EXPECT_EQ(w.getBal(), 100);
@@ -29,4 +30,9 @@ TEST(WalletTest, WithdrawMoney) {
     wallet w(100);
     w.withdraw(40);
     EXPECT_EQ(w.getBal(), 60);
+}
+TEST(WalletTest, WithdrawMoreThanBalanceThrows) {
+    wallet w(50);
+    EXPECT_THROW(w.withdraw(100), NotEnoughMoney);
+    EXPECT_EQ(w.getBal(), 50);
 }
