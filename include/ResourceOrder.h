@@ -8,7 +8,6 @@ public:
     ResourceOrder(Resource::Type resource, int amount, int baseReward);
     std::string typeName() const override;
     std::string describe() const override;
-    int priority() const noexcept;
     int rewardMoney() const noexcept override;
 
     Resource::Type resourceType() const noexcept override;
