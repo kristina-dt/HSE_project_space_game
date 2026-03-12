@@ -45,6 +45,87 @@
 //     }
 //
 // }
+// std::string getOrderTitle(int orderNumber) {
+//     switch (orderNumber) {
+//         case 1:
+//             return "FIRST ORDER!";
+//         case 2:
+//             return "SECOND ORDER!";
+//         case 3:
+//             return "THIRD ORDER!";
+//         default:
+//             return "NEW ORDER!";
+//     }
+// }
+// std::string getResourceName(Resource::Type type) {
+//     switch (type) {
+//         case Resource::Type::Fuel:
+//             return "Fuel";
+//         case Resource::Type::Food:
+//             return "Food";
+//         case Resource::Type::Drinks:
+//             return "Drinks";
+//         case Resource::Type::Details:
+//             return "Details";
+//         case Resource::Type::Decorations:
+//             return "Decorations";
+//     }
+//     return "Unknown";
+// }
+//
+// void processOrder(InformationPlayer& player, ProductionManager& manager, Ship& ship, int orderNumber) {
+//     if (!ship.hasOrder()) {
+//         std::cout << "\nNo active order.\n";
+//         return;
+//     }
+//
+//     Order* order = ship.getOrder();
+//     if (!order) {
+//         std::cout << "\nOrder is missing.\n";
+//         return;
+//     }
+//
+//     std::cout << "\n=== " << getOrderTitle(orderNumber) << " ===\n";
+//     std::cout << "Order #" << orderNumber << "\n";
+//     std::cout << order->describe() << "\n";
+//
+//     Resource::Type neededType = order->resourceType();
+//     int neededAmount = order->amount();
+//     int playerAmount = player.getAmountResource(neededType);
+//
+//     std::cout << "You have: " << playerAmount
+//               << " units of " << getResourceName(neededType) << "\n";
+//
+//     if (playerAmount < neededAmount) {
+//         std::cout << "\nNot enough resources!\n";
+//         std::cout << "You need " << (neededAmount - playerAmount) << " more units.\n";
+//         return;
+//     }
+//
+//     std::string answer;
+//     std::cout << "\nYou have enough resources!\n";
+//     std::cout << "Complete this order? (yes/no): ";
+//     std::cin >> answer;
+//
+//     if (answer == "yes" || answer == "y") {
+//         bool sold = player.sell(neededType, neededAmount);
+//
+//         if (!sold) {
+//             std::cout << "\nCould not complete the order.\n";
+//             return;
+//         }
+//
+//         int reward = ship.completeOrderAndGetReward();
+//         player.getWal().deposit(reward);
+//
+//         std::cout << "\nORDER COMPLETED!\n";
+//         std::cout << "You earned: " << reward << " credits!\n";
+//
+//         AskStatus(player, manager);
+//     } else {
+//         std::cout << "\nOrder declined.\n";
+//     }
+// }
 // bool upgradeStation(ProductionManager& productionManager, InformationPlayer& player, size_t stationIndex) {
 //     if (stationIndex >= productionManager.getCount()) {
 //         std::cout << "Eroor: appliance with index " << stationIndex << " does not exist!\n";
