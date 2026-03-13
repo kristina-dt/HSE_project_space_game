@@ -23,7 +23,7 @@ InformationPlayer::InformationPlayer(const std::string &namepla, float px, float
     inventory.push_back({Resource::Type::Food,7});
     inventory.push_back({Resource::Type::Drinks, 7});
     inventory.push_back({Resource::Type::Details, 5});
-    inventory.push_back({Resource::Type::Decorations, 0});
+    inventory.push_back({Resource::Type::Decorations, 2});
 
     sellPrice[Resource::Type::Decorations] = 45;
     sellPrice[Resource::Type::Details] = 20;
