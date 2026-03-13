@@ -192,7 +192,7 @@ int ProductionManager::getProductPrice(int index) const {
 
     if (type == "FuelMaker") {
         const FuelMaker* maker = static_cast<const FuelMaker*>(appliances_[index].get());
-        return maker->getFuelPrice();
+        return maker->getCurrentPrice();
     }
     else if (type == "PartAssembler") {
         const PartAssembler* assembler = static_cast<const PartAssembler*>(appliances_[index].get());
