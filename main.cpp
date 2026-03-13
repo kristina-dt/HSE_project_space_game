@@ -134,7 +134,7 @@ void processOrder(InformationPlayer& player, ProductionManager& manager, Ship& s
         player.getWal().deposit(calculatedReward);
 
         std::cout << "\nORDER COMPLETED!\n";
-        std::cout << "You earned: " << reward << " credits!\n";
+        std::cout << "You earned: " << calculatedReward<< " credits!\n";
 
         AskStatus(player, manager);
     } else {
