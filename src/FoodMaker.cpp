@@ -78,7 +78,7 @@ int Foodmaker::getUpgradeCost() const {
 
 void Foodmaker::showAvailableModes() {
     std::cout << "\n=== Available Modes ===\n";
-    std::cout << "0. Food\мn";
+    std::cout << "0. Food\n";
     std::cout << "1. Drinks\n";
     std::cout << "=======================\n";
 }
