@@ -6,6 +6,9 @@ ProductionManager::ProductionManager() {
     appliances_.push_back(std::make_shared<FuelMaker>(5, 10));
     appliances_.push_back(std::make_shared<PartAssembler>(8, 12));
     appliances_.push_back(std::make_shared<Foodmaker>(3, 7));
+    applianceVariants_.emplace_back(FuelMaker(5, 10));
+    applianceVariants_.emplace_back(PartAssembler(8, 12));
+    applianceVariants_.emplace_back(Foodmaker(3, 7));
 
     std::cout << "\nProduction Manager initialized with "
               << appliances_.size() << " appliances\n";

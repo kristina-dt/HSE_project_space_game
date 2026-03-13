@@ -9,10 +9,16 @@
 #include <memory>
 #include <iostream>
 #include <optional>
-
+#include <variant>
+using ApplianceVariant = std::variant<
+    FuelMaker,
+    PartAssembler,
+    Foodmaker
+>;
 class ProductionManager {
 private:
     std::vector<std::shared_ptr<Appliance>> appliances_;
+    std::vector<ApplianceVariant> applianceVariants_;
 
 public:
     ProductionManager();
