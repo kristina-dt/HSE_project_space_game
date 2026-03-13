@@ -47,7 +47,7 @@ void AskStatus(const InformationPlayer& player,  ProductionManager& manager) {
     }
 
 }
-std::unique_ptr<Order> generateRandomOrder() {
+std::unique_ptr<Order> generateRandomOrder(const InformationPlayer& player) {
     static std::mt19937 rng(std::random_device{}());
 
     std::uniform_int_distribution<int> resourceDist(0, 4);
@@ -55,8 +55,7 @@ std::unique_ptr<Order> generateRandomOrder() {
 
     Resource::Type type = static_cast<Resource::Type>(resourceDist(rng));
     int amount = amountDist(rng);
-    int reward = amount * 20 + 10;
-
+    int reward = amount * player.getSellPrice(type);
     return std::make_unique<ResourceOrder>(type, amount, reward);
 }
 std::string getOrderTitle(int orderNumber) {
@@ -299,7 +298,7 @@ int main() {
             Ship::START_X,
             5.0f,
             Ship::DEFAULT_SPEED,
-            generateRandomOrder()
+            generateRandomOrder(player)
         );
 
         processOrder(player, manager, ship, i);
