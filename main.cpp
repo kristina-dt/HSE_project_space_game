@@ -344,6 +344,9 @@ bool ReplShop(InformationPlayer& player) {
         return false;
     }
     int totalCost = amountItem* restPrice;
+    std::cout << "Your balance: " << playerBalance << " credits\n";
+    std::cout << "You can buy up to " << maxItem << " units\n";
+    std::cout << "\nHow many units would you like to buy? (0-" << maxItem << "): ";
     std::cout << "\nRestock summary:\n";
     std::cout << "  Resource: " << typeName << "\n";
     std::cout << "  Amount: " << amountItem << " units\n";
