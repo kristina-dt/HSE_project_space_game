@@ -111,12 +111,15 @@ TEST(ShipTest, UpdateWithoutOrderMovesShipToRightInitially) {
     EXPECT_FLOAT_EQ(ship.getY(), 5.0f);
 }
 
-TEST(ShipTest, IsDockedReturnsTrueWhenAtOrBeforeDockX) {
-    Ship shipAtDock(Ship::DOCK_X, 5.0f, 2.0f);
-    Ship shipBeforeDock(Ship::DOCK_X - 10.0f, 5.0f, 2.0f);
-    Ship shipAfterDock(Ship::DOCK_X + 10.0f, 5.0f, 2.0f);
+TEST(ShipTest, IsDockedReturnsTrueWhenYAtDockX) {
+    Ship shipAtDock(15.0f, Ship::DOCK_X, 2.0f);
+    Ship shipNearDock(15.0f, Ship::DOCK_X - 0.05f, 2.0f);
+    Ship shipNotDocked(15.0f, Ship::DOCK_X + 10.0f, 2.0f);
+    Ship shipBeforeDock(15.0f, Ship::DOCK_X - 5.0f, 2.0f);
 
     EXPECT_TRUE(shipAtDock.isDocked());
-    EXPECT_TRUE(shipBeforeDock.isDocked());
-    EXPECT_FALSE(shipAfterDock.isDocked());
+    EXPECT_TRUE(shipNearDock.isDocked());
+    EXPECT_FALSE(shipNotDocked.isDocked());
+
+    EXPECT_FALSE(shipBeforeDock.isDocked());
 }
