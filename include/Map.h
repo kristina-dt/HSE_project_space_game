@@ -4,12 +4,13 @@
 #include <string>
 #include "InformationPlayer.h"
 #include "Ship.h"
-#include "Appliance.h"
 #include "Foodmaker.h"
+#include "PartAssembler.h"
+#include "FuelMaker.h"
 
-enum class WindowType { Food, Info, Warning };
-
+enum class WindowType { Food, Fuel, PartAssembler };
 enum class FoodMakerWindow { Food, Drinks, Level, CurrentPrice, Name };
+enum class PartAssemblerWindow { Details, Decorations, Level, CurrentPrice, Name };
 
 class Map {
     sf::Font font;
@@ -18,9 +19,24 @@ class Map {
     sf::Text text;
     FoodMakerWindow m_currentFoodMode = FoodMakerWindow::Name;
     Foodmaker foodmaker;
+    PartAssembler partassembler;
+    FuelMaker fuelmaker;
+    int foodNumber = 7;
+    int fuelNumber = 5;
+    int partNumber = 5;
 public:
     Map();
-    //bool loadResources();
+    int getFn() {
+        return foodNumber;
+    }
+    int getFln() {
+        return foodNumber;
+    }
+    int getPn() {
+        return foodNumber;
+    }
+    void updateAmount(WindowType type);
+
     static void draw(sf::RenderWindow& window, const std::vector<std::string>& map, const InformationPlayer& player, const std::vector<Ship>& ships);
     void drawWindow(sf::RenderWindow &window);
     void prepareWindow(WindowType type);

@@ -84,7 +84,7 @@ void GameEngine::run(InformationPlayer& player, Map& mapp) {
     sf::Font font;
     font.openFromFile("fonts/DeluxePaint-Regular.otf");
     StartScreen startScreen(font);
-    startScreen.setPosition({100.f, 100.f});
+    startScreen.setPosition({8.5*28.0f, 15*28.0f});
 
     bool isGameStarted = false;
 
@@ -92,7 +92,8 @@ void GameEngine::run(InformationPlayer& player, Map& mapp) {
     std::vector<float> Gates = {4.5f * 28.0f, 11.5f * 28.0f, 18.5f * 28.0f, 25.5f * 28.0f};
 
     sf::FloatRect foodmakerZone({1.0f * cellSize, 18.0f * cellSize},{2 * cellSize, 4 * cellSize});
-    //mapp.loadResources();
+    sf::FloatRect fuelmakerZone({29.0f * cellSize,16.0f * cellSize},{2 * cellSize, 4 * cellSize});
+    sf::FloatRect partassemblerZone({22.0f * cellSize,22.0f * cellSize},{2 * cellSize, 4 * cellSize});
 
     while (window.isOpen()) {
         while (const std::optional event = window.pollEvent()) {
@@ -134,6 +135,18 @@ void GameEngine::run(InformationPlayer& player, Map& mapp) {
                 mapp.prepareWindow(WindowType::Food);
                 mapp.drawWindow(window);
             }
+            if (playerBounds.findIntersection(fuelmakerZone)) {
+                mapp.prepareWindow(WindowType::Fuel);
+                mapp.drawWindow(window);
+            }
+            if (playerBounds.findIntersection(partassemblerZone)) {
+                if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::E)) {
+                    mapp.updateAmount(WindowType::PartAssembler);
+                }
+                mapp.prepareWindow(WindowType::PartAssembler);
+                mapp.drawWindow(window);
+            }
+
         }
 
         window.display();

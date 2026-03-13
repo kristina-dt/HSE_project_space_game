@@ -4,6 +4,7 @@
 #include <string>
 
 class StartScreen {
+    sf::Text input_text;
     sf::Text def_text;
     sf::Font font;
     std::ostringstream text;
@@ -14,6 +15,7 @@ class StartScreen {
 
 public:
     StartScreen(sf::Font &font);
+    void drawDef();
     void setFont(sf::Font& font);
     void setPosition(sf::Vector2f pos);
     std::string getText();

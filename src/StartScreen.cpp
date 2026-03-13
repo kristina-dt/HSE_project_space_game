@@ -7,16 +7,17 @@ void StartScreen::deleteChar() {
         text.str("");
         text << t;
     }
-    def_text.setString(text.str());
+    input_text.setString(text.str());
 }
 
 void StartScreen::setFont(sf::Font &font) {
-    def_text.setFont(font);
+    input_text.setFont(font);
 }
 
 void StartScreen::setPosition(sf::Vector2f pos) {
     textbox.setPosition(pos);
-    def_text.setPosition({pos.x + 10.f, pos.y + 10.f});
+    input_text.setPosition({pos.x + 10.f, pos.y + 17.f});
+    def_text.setPosition({pos.x - 3*28.f, pos.y - 6*28.f});
 }
 
 std::string StartScreen::getText() {
@@ -24,8 +25,9 @@ std::string StartScreen::getText() {
 }
 
 void StartScreen::drawTo(sf::RenderWindow &window) {
-    window.draw(textbox);
     window.draw(def_text);
+    window.draw(textbox);
+    window.draw(input_text);
 }
 
 void StartScreen::typed(const sf::Event& event) {
@@ -38,19 +40,23 @@ void StartScreen::typed(const sf::Event& event) {
         }
         else if (unicode < 128 && unicode >= 32 && text.str().length() < limit) {
             text << static_cast<char>(unicode);
-            def_text.setString(text.str() + "_");
+            input_text.setString(text.str() + "_");
         }
     }
 }
 
-StartScreen::StartScreen(sf::Font &font): limit(20), def_text(font,"_", 30){
+StartScreen::StartScreen(sf::Font &font): limit(20), input_text(font,"_", 24), def_text(font,"!", 35){
+    input_text.setFillColor(sf::Color::White);
+
     def_text.setFillColor(sf::Color::White);
+    def_text.setString("Welcome to the\n  SpaceShip!");
 
     textbox.setSize(sf::Vector2f(400.f, 60.f));
     textbox.setFillColor(sf::Color::Black);
     textbox.setOutlineColor(sf::Color::White);
     textbox.setOutlineThickness(2.f);
 }
+
 
 
 
