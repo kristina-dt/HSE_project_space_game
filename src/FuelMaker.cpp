@@ -32,3 +32,6 @@ int FuelMaker::getUpgradeCost() const {
 std::string FuelMaker::getType() const {
     return "Fuel Synthesizer";
 }
+int FuelMaker::getLevel() const {
+    return level_;
+}

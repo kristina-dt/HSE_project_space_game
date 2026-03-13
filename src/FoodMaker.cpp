@@ -82,3 +82,7 @@ void Foodmaker::showAvailableModes() {
     std::cout << "1. Drinks\n";
     std::cout << "=======================\n";
 }
+
+int Foodmaker::getLevel() const {
+    return level_;
+}

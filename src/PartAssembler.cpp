@@ -74,3 +74,6 @@ Resource::Type PartAssembler::getResourceType() const {
             return Resource::Type::Details;
     }
 }
+int PartAssembler::getLevel() const {
+    return level_;
+}
