@@ -32,7 +32,7 @@ int PartAssembler::getCurrentPrice() const {
         case PartAssemblerMode::Details:
             return 25 + (level_ - 1) * 15;
         case PartAssemblerMode::Decorations:
-            return 25 + (level_ - 1) * 25;
+            return 25 + (level_ - 1) * 15;
         default:
             return 0;
     }
