@@ -323,6 +323,14 @@ bool ReplShop(InformationPlayer& player) {
             std::cout << "Invalid choice!\n";
             return false;
     }
+    std::string typeName = getResourceName(selecType);
+    int currentAmount = player.getAmountResource(selecType);
+    int basePrice = player.getSellPrice(selecType);
+    int restPrice = static_cast<int>(basePrice * 0.88f);
+    std::cout << "\n=== REPLENISHMENT " << typeName << " ===\n";
+    std::cout << "Current stock: " << currentAmount << " units\n";
+    std::cout << "Base selling price: " << basePrice << " credits\n";
+    std::cout << "Buying price : " << restPrice << " credits\n";
 
 
 }
