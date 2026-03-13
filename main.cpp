@@ -312,7 +312,17 @@ bool ReplShop(InformationPlayer& player) {
         std::cout << "Replenishment cancelled.\n";
         return false;
     }
-
+    Resource::Type selecType;
+    switch (choice) {
+        case 1: selecType = Resource::Type::Fuel; break;
+        case 2: selecType = Resource::Type::Food; break;
+        case 3: selecType = Resource::Type::Drinks; break;
+        case 4: selecType = Resource::Type::Details; break;
+        case 5: selecType = Resource::Type::Decorations; break;
+        default:
+            std::cout << "Invalid choice!\n";
+            return false;
+    }
 
 
 }
