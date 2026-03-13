@@ -128,9 +128,10 @@ void processOrder(InformationPlayer& player, ProductionManager& manager, Ship& s
             std::cout << "\nCould not complete the order.\n";
             return;
         }
-
+        int pricePerUnit = player.getSellPrice(neededType);
+        int calculatedReward = neededAmount * pricePerUnit;
         int reward = ship.completeOrderAndGetReward();
-        player.getWal().deposit(reward);
+        player.getWal().deposit(calculatedReward);
 
         std::cout << "\nORDER COMPLETED!\n";
         std::cout << "You earned: " << reward << " credits!\n";
