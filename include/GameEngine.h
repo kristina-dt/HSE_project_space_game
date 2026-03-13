@@ -3,6 +3,7 @@
 #include "Map.h"
 #include <iostream>
 #include <random>
+#include "Foodmaker.h"
 #include "Order.h"
 
 class GameEngine {
@@ -13,10 +14,11 @@ class GameEngine {
     std::vector<Ship> ships_;
     std::mt19937 rng_{ std::random_device{}() };
     std::unique_ptr<Order> generateRandomOrder();
+    sf::Font font;
 public:
     static const unsigned int  CELL_SIZE = 30;
     GameEngine();
-    void run(InformationPlayer& player);
+    void run(InformationPlayer& player, Map& mapp);
     void movements(InformationPlayer& player);
 };
 
