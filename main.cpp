@@ -331,7 +331,44 @@ bool ReplShop(InformationPlayer& player) {
     std::cout << "Current stock: " << currentAmount << " units\n";
     std::cout << "Base selling price: " << basePrice << " credits\n";
     std::cout << "Buying price : " << restPrice << " credits\n";
-
+    int playerBalance = player.getWal().getBal();
+    int maxItem = playerBalance / restPrice;
+    if (maxItem <= 0) {
+        std::cout << "\nYou don't have enough credits to restock!\n";maxItem;
+        return false;
+    }
+    int amountItem;
+    std::cin>>amountItem;
+    if (amountItem > maxItem) {
+        std::cout << "Cannot afford " << amountItem << " units. Maximum affordable: " << maxItem << "\n";
+        return false;
+    }
+    int totalCost = amountItem* restPrice;
+    std::cout << "\nRestock summary:\n";
+    std::cout << "  Resource: " << typeName << "\n";
+    std::cout << "  Amount: " << amountItem << " units\n";
+    std::cout << "  Price per unit: " << restPrice << " credits\n";
+    std::cout << "  Total cost: " << totalCost << " credits\n";
+    std::cout << "  Your balance after: " << (playerBalance - totalCost) << " credits\n";
+    std::cout << "\nConfirm restock? (yes/no): ";
+    std::string confirm;
+    std::cin >> confirm;
+    if (confirm != "yes" || confirm != "y") {
+        std::cout << "Replenishment cancelled.\n";
+        return false;
+    }
+    try {
+        player.getWal().withdraw(totalCost);
+        player.addResource(selecType, amountItem);
+        std::cout << "\n === COMPLETED SUCCESSFULLY! ===\n";
+        std::cout << "  Added " << amountItem << " units of " << typeName << "\n";
+        std::cout << "  New stock: " << player.getAmountResource(selecType) << " units\n";
+        std::cout << "  New balance: " << player.getWal().getBal() << " credits\n";
+        return true;
+    } catch (const NotEnoughMoney& e) {
+        std::cout << "\n Oh!NOOOOOO!!!!!! Payment error: " << e.what() << "\n";
+        return false;
+    }
 
 }
 int main() {
@@ -348,6 +385,7 @@ int main() {
         );
 
         processOrder(player, manager, ship, i);
+        ReplShop(player);
         askForUpgrade(manager, player);
     }
 
