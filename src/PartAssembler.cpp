@@ -30,9 +30,9 @@ std::string PartAssembler::getModeName() const {
 int PartAssembler::getCurrentPrice() const {
     switch(currentMode_) {
         case PartAssemblerMode::Details:
-            return 35 + (level_ - 1) * 15;     // Details: 35, 50, 65...(cost)
+            return 20 + (level_ - 1) * 15;     // Details: 35, 50, 65...(cost)
         case PartAssemblerMode::Decorations:
-            return 50 + (level_ - 1) * 25;     // Decorations: 50, 75, 100...(cost)
+            return 45 + (level_ - 1) * 25;     // Decorations: 50, 75, 100...(cost)
         default:
             return 0;
     }
