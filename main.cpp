@@ -8,6 +8,24 @@
 #include "include/InformationPlayer.h"
 #include "include/ProductionManager.h"
 #include "include/NotEnoughMoney.h"
+
+std::string getYesNoInput(const std::string& prompt) {
+    std::string answer;
+    while (true) {
+        std::cout << prompt;
+        std::cin >> answer;
+
+        std::transform(answer.begin(), answer.end(), answer.begin(), ::tolower);
+
+        if (answer == "yes" || answer == "no") {
+            return answer;
+        }
+
+        std::cout << "Invalid input! Please enter 'yes' or 'no'.\n";
+        std::cin.clear();
+        std::cin.ignore(10000, '\n');
+    }
+}
 InformationPlayer createPlayer() {
     std::string name;
     std::cout << "=== CHARACTER CREATION ===\n";
@@ -31,21 +49,15 @@ void showPlayerStatus(const InformationPlayer& player, ProductionManager& manage
     }
     std::cout << "==================================\n";
 }
-void AskStatus(const InformationPlayer& player,  ProductionManager& manager) {
-    std::string answer;
-    std::cout << "\n Do you want to see your current status? (yes/no): ";
-    std::cin >> answer;
+void AskStatus(const InformationPlayer& player, ProductionManager& manager) {
+    std::string answer = getYesNoInput("\nDo you want to see your current status? (yes/no): ");
+
     if (answer == "yes" || answer == "y") {
         std::cout << "\n======= CURRENT STATUS =======\n";
         showPlayerStatus(player, manager);
+    } else {
+        std::cout << "Status is hidden\n";
     }
-    else if (answer == "no" || answer == "n") {
-        std::cout<<"Status is hidden\n";
-    }
-    else {
-        std::cout<<"Invalid input. Please enter yes or no.\n";
-    }
-
 }
 std::unique_ptr<Order> generateRandomOrder(const InformationPlayer& player) {
     static std::mt19937 rng(std::random_device{}());
@@ -112,13 +124,11 @@ void processOrder(InformationPlayer& player, ProductionManager& manager, Ship& s
     if (playerAmount < neededAmount) {
         std::cout << "\nNot enough resources!\n";
         std::cout << "You need " << (neededAmount - playerAmount) << " more units.\n";
+        std::cout << "Order missed.\n";
         return;
     }
 
-    std::string answer;
-    std::cout << "\nYou have enough resources!\n";
-    std::cout << "Complete this order? (yes/no): ";
-    std::cin >> answer;
+    std::string answer = getYesNoInput("\nYou have enough resources!\nComplete this order? (yes/no): ");
 
     if (answer == "yes" || answer == "y") {
         bool sold = player.sell(neededType, neededAmount);
@@ -195,12 +205,10 @@ bool upgradeStation(ProductionManager& productionManager, InformationPlayer& pla
         return false;
     }
 
-    std::cout << "\n Confirm upgrade (yes/no): ";
-    std::string confirm;
-    std::cin >> confirm;
+    std::string confirm = getYesNoInput("\nConfirm upgrade (yes/no): ");
 
-    if (confirm != "yes" && confirm != "Yes" && confirm != "YES" && confirm != "y") {
-        std::cout << " Upgrade cancelled.\n";
+    if (confirm != "yes" && confirm != "y") {
+        std::cout << "Upgrade cancelled.\n";
         return false;
     }
 
@@ -278,9 +286,8 @@ void askForUpgrade(ProductionManager& manager, InformationPlayer& player) {
         std::cout << "No upgrades available right now.\n";
         return;
     }
-    std::cout << "\nDo you want to upgrade something? (yes/no): ";
-    std::string answer;
-    std::cin >> answer;
+    std::string answer = getYesNoInput("\nDo you want to upgrade something? (yes/no): ");
+
     if (answer == "yes" || answer == "y") {
         size_t index;
         std::cout << "Enter station index to upgrade: ";
@@ -290,14 +297,13 @@ void askForUpgrade(ProductionManager& manager, InformationPlayer& player) {
 }
 bool ReplShop(InformationPlayer& player) {
     std::cout << "\n=== REPLENISHMENT OF SHOP ===\n";
-    std::cout << "Do you want to restock your shop? (yes/no): ";
-    std::string answer;
-    std::cin >> answer;
+    std::string answer = getYesNoInput("Do you want to restock your shop? (yes/no): ");
 
     if (answer != "yes" && answer != "y") {
         std::cout << "Replenishment cancelled.\n";
         return false;
     }
+
     std::cout << "\nAvailable resources to replenishment:\n";
     std::cout << "1. Fuel (current: " << player.getAmountResource(Resource::Type::Fuel) << " units)\n";
     std::cout << "2. Food (current: " << player.getAmountResource(Resource::Type::Food) << " units)\n";
@@ -305,13 +311,16 @@ bool ReplShop(InformationPlayer& player) {
     std::cout << "4. Details (current: " << player.getAmountResource(Resource::Type::Details) << " units)\n";
     std::cout << "5. Decorations (current: " << player.getAmountResource(Resource::Type::Decorations) << " units)\n";
     std::cout << "0. Cancel\n";
+
     int choice;
     std::cout << "\nSelect resource to restock (0-5): ";
-    std::cin>>choice;
+    std::cin >> choice;
+
     if (choice == 0) {
         std::cout << "Replenishment cancelled.\n";
         return false;
     }
+
     Resource::Type selecType;
     switch (choice) {
         case 1: selecType = Resource::Type::Fuel; break;
@@ -323,56 +332,77 @@ bool ReplShop(InformationPlayer& player) {
             std::cout << "Invalid choice!\n";
             return false;
     }
+
     std::string typeName = getResourceName(selecType);
     int currentAmount = player.getAmountResource(selecType);
     int basePrice = player.getSellPrice(selecType);
-    int restPrice = static_cast<int>(basePrice * 0.88f);
+    int restPrice = static_cast<int>(basePrice * 0.7f);
+
     std::cout << "\n=== REPLENISHMENT " << typeName << " ===\n";
     std::cout << "Current stock: " << currentAmount << " units\n";
     std::cout << "Base selling price: " << basePrice << " credits\n";
-    std::cout << "Buying price : " << restPrice << " credits\n";
+    std::cout << "Buying price: " << restPrice << " credits\n";
+
     int playerBalance = player.getWal().getBal();
     int maxItem = playerBalance / restPrice;
+
     if (maxItem <= 0) {
-        std::cout << "\nYou don't have enough credits to restock!\n";maxItem;
+        std::cout << "\nYou don't have enough credits to restock!\n";
+        std::cout << "Your balance: " << playerBalance << " credits\n";
+        std::cout << "Minimum needed: " << restPrice << " credits\n";
         return false;
     }
-    int amountItem;
-    std::cin>>amountItem;
-    if (amountItem > maxItem) {
-        std::cout << "Cannot afford " << amountItem << " units. Maximum affordable: " << maxItem << "\n";
-        return false;
-    }
-    int totalCost = amountItem* restPrice;
+
     std::cout << "Your balance: " << playerBalance << " credits\n";
     std::cout << "You can buy up to " << maxItem << " units\n";
     std::cout << "\nHow many units would you like to buy? (0-" << maxItem << "): ";
+
+    int amountItem;
+    std::cin >> amountItem;
+
+    if (std::cin.fail() || amountItem < 0 || amountItem > maxItem) {
+        std::cin.clear();
+        std::cin.ignore(10000, '\n');
+        std::cout << "Invalid input! Please enter a number between 0 and " << maxItem << "\n";
+        return false;
+    }
+
+    if (amountItem == 0) {
+        std::cout << "Replenishment cancelled.\n";
+        return false;
+    }
+
+    int totalCost = amountItem * restPrice;
+
     std::cout << "\nRestock summary:\n";
     std::cout << "  Resource: " << typeName << "\n";
     std::cout << "  Amount: " << amountItem << " units\n";
     std::cout << "  Price per unit: " << restPrice << " credits\n";
     std::cout << "  Total cost: " << totalCost << " credits\n";
     std::cout << "  Your balance after: " << (playerBalance - totalCost) << " credits\n";
-    std::cout << "\nConfirm restock? (yes/no): ";
-    std::string confirm;
-    std::cin >> confirm;
+    std::string confirm = getYesNoInput("\nConfirm restock? (yes/no): ");
+
     if (confirm != "yes" && confirm != "y") {
         std::cout << "Replenishment cancelled.\n";
         return false;
     }
+
+
     try {
         player.getWal().withdraw(totalCost);
+
         player.addResource(selecType, amountItem);
-        std::cout << "\n === COMPLETED SUCCESSFULLY! ===\n";
+
+        std::cout << "\n COMPLETED SUCCESSFULLY!\n";
         std::cout << "  Added " << amountItem << " units of " << typeName << "\n";
         std::cout << "  New stock: " << player.getAmountResource(selecType) << " units\n";
         std::cout << "  New balance: " << player.getWal().getBal() << " credits\n";
         return true;
+
     } catch (const NotEnoughMoney& e) {
-        std::cout << "\n Oh!NOOOOOO!!!!!! Payment error: " << e.what() << "\n";
+        std::cout << "\nPayment error: " << e.what() << "\n";
         return false;
     }
-
 }
 int main() {
     InformationPlayer player = createPlayer();

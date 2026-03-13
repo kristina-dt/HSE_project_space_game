@@ -11,7 +11,7 @@ TEST(InformationPlayerTest, Constructor) {
     EXPECT_EQ(player.getAmountResource(Resource::Type::Food), 7);
     EXPECT_EQ(player.getAmountResource(Resource::Type::Drinks), 7);
     EXPECT_EQ(player.getAmountResource(Resource::Type::Details), 5);
-    EXPECT_EQ(player.getAmountResource(Resource::Type::Decorations), 0);
+    EXPECT_EQ(player.getAmountResource(Resource::Type::Decorations), 2);
 }
 TEST(InformationPlayerTest, ConstructorDefault) {
     InformationPlayer player("TestPlayer", 2.0f, 3.0f);
@@ -41,7 +41,7 @@ TEST(InformationPlayerTest, GetResourceAmount) {
     EXPECT_EQ(player.getAmountResource(Resource::Type::Food), 7);
     EXPECT_EQ(player.getAmountResource(Resource::Type::Drinks), 7);
     EXPECT_EQ(player.getAmountResource(Resource::Type::Details), 5);
-    EXPECT_EQ(player.getAmountResource(Resource::Type::Decorations), 0);
+    EXPECT_EQ(player.getAmountResource(Resource::Type::Decorations), 2);
 }
 TEST(InformationPlayerTest, SellResourceSu) {
     InformationPlayer player("TestPlayer", 0, 0);

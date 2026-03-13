@@ -12,7 +12,7 @@ int FuelMaker::getCurrentPrice() const {
 
 
 bool FuelMaker::produce(InformationPlayer& player) {
-    int price = getCurrentPrice()*0.88;
+    int price = getCurrentPrice()*0.7;
     int amount = 1;
 
     player.addResource(Resource::Fuel, amount);
