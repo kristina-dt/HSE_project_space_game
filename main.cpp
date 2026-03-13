@@ -294,7 +294,7 @@ bool ReplShop(InformationPlayer& player) {
     std::string answer;
     std::cin >> answer;
 
-    if (answer != "yes" || answer != "y") {
+    if (answer != "yes" && answer != "y") {
         std::cout << "Replenishment cancelled.\n";
         return false;
     }
@@ -353,7 +353,7 @@ bool ReplShop(InformationPlayer& player) {
     std::cout << "\nConfirm restock? (yes/no): ";
     std::string confirm;
     std::cin >> confirm;
-    if (confirm != "yes" || confirm != "y") {
+    if (confirm != "yes" && confirm != "y") {
         std::cout << "Replenishment cancelled.\n";
         return false;
     }
