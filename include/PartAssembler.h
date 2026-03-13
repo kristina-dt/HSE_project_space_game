@@ -19,7 +19,7 @@ public:
     std::string getType() const override;
     bool produce(InformationPlayer& player) override;
     int getUpgradeCost() const override;
-    int Getlevel() const;
+    int getLevel() const;
 
     void setMode(PartAssemblerMode mode);
     PartAssemblerMode getMode() const;
