@@ -12,5 +12,6 @@ public:
     bool produce(InformationPlayer& player) override;
     int getUpgradeCost() const override;
     int getCurrentPrice() const;
+    int Getlevel() const;
 
 };

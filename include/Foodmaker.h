@@ -19,6 +19,7 @@ public:
     std::string getType() const override;
     bool produce(InformationPlayer& player) override;
     int getUpgradeCost() const override;
+    int Getlevel() const;
 
     void setMode(FoodDrinksMode mode);
     FoodDrinksMode getMode() const;
