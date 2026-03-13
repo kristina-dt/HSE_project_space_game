@@ -288,6 +288,16 @@ void askForUpgrade(ProductionManager& manager, InformationPlayer& player) {
         upgradeStation(manager, player, index);
     }
 }
+bool ReplShop(InformationPlayer& player) {
+    std::cout << "\n=== REPLENISHMENT OF SHOP ===\n";
+    std::cout << "Do you want to restock your shop? (yes/no): ";
+    std::string answer;
+    std::cin >> answer;
+
+    if (answer != "yes" || answer != "y") {
+        std::cout << "Replenishment cancelled.\n";
+        return false;
+    }
 int main() {
     InformationPlayer player = createPlayer();
     ProductionManager manager;
