@@ -23,26 +23,23 @@ TEST_F(FuelMakerTest, Constructor) {
 }
 
 TEST_F(FuelMakerTest, CurrentPrice) {
-    EXPECT_EQ(fuelMaker->getCurrentPrice(), 20);
-    EXPECT_EQ(fuelMaker->getFuelPrice(), 20);
+    EXPECT_EQ(fuelMaker->getCurrentPrice(), 18);
 
     fuelMaker->upgrade();
-    EXPECT_EQ(fuelMaker->getCurrentPrice(), 30);
-    EXPECT_EQ(fuelMaker->getFuelPrice(), 30);
+    EXPECT_EQ(fuelMaker->getCurrentPrice(), 28);
 
     fuelMaker->upgrade();
-    EXPECT_EQ(fuelMaker->getCurrentPrice(), 40);
-    EXPECT_EQ(fuelMaker->getFuelPrice(), 40);
+    EXPECT_EQ(fuelMaker->getCurrentPrice(), 38);
 }
 
 TEST_F(FuelMakerTest, UpgradeCost) {
-    EXPECT_EQ(fuelMaker->getUpgradeCost(), 150);
+    EXPECT_EQ(fuelMaker->getUpgradeCost(), 60);
 
     fuelMaker->upgrade();
-    EXPECT_EQ(fuelMaker->getUpgradeCost(), 300);
+    EXPECT_EQ(fuelMaker->getUpgradeCost(), 120);
 
     fuelMaker->upgrade();
-    EXPECT_EQ(fuelMaker->getUpgradeCost(), 450);
+    EXPECT_EQ(fuelMaker->getUpgradeCost(), 180);
 }
 
 TEST_F(FuelMakerTest, Produce) {

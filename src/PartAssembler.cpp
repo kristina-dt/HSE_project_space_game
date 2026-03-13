@@ -39,7 +39,7 @@ int PartAssembler::getCurrentPrice() const {
 }
 
 bool PartAssembler::produce(InformationPlayer& player) {
-    int price = getCurrentPrice();
+    int price = getCurrentPrice()*0.88;
     Resource::Type resourceType = getResourceType();
     std::string productName = getModeName();
 

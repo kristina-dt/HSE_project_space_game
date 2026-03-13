@@ -112,9 +112,9 @@ TEST(ShipTest, UpdateWithoutOrderMovesShipToRightInitially) {
 }
 
 TEST(ShipTest, IsDockedReturnsTrueWhenAtOrBeforeDockX) {
-    Ship shipAtDock(20.0f, 5.0f, 2.0f);
-    Ship shipBeforeDock(10.0f, 5.0f, 2.0f);
-    Ship shipAfterDock(30.0f, 5.0f, 2.0f);
+    Ship shipAtDock(Ship::DOCK_X, 5.0f, 2.0f);
+    Ship shipBeforeDock(Ship::DOCK_X - 10.0f, 5.0f, 2.0f);
+    Ship shipAfterDock(Ship::DOCK_X + 10.0f, 5.0f, 2.0f);
 
     EXPECT_TRUE(shipAtDock.isDocked());
     EXPECT_TRUE(shipBeforeDock.isDocked());

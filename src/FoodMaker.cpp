@@ -48,7 +48,7 @@ int Foodmaker::getCurrentPrice() const {
 }
 
 bool Foodmaker::produce(InformationPlayer& player) {
-    int price = getCurrentPrice();
+    int price = getCurrentPrice()*0.88;
     Resource::Type resourceType = getResourceType();
     std::string typeName = getModeName();
 

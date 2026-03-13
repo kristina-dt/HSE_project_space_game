@@ -41,44 +41,46 @@ TEST_F(FoodmakerTest, ModeMethods) {
 }
 
 TEST_F(FoodmakerTest, CurrentPrice) {
-    EXPECT_EQ(foodmaker->getCurrentPrice(), 30);
+    EXPECT_EQ(foodmaker->getCurrentPrice(), 7);
 
     foodmaker->setMode(FoodDrinksMode::Drinks);
-    EXPECT_EQ(foodmaker->getCurrentPrice(), 20);
+    EXPECT_EQ(foodmaker->getCurrentPrice(), 7);
 
     foodmaker->upgrade();
-
-    EXPECT_EQ(foodmaker->getCurrentPrice(), 28);
+    EXPECT_EQ(foodmaker->getCurrentPrice(), 15);
     foodmaker->setMode(FoodDrinksMode::Food);
-    EXPECT_EQ(foodmaker->getCurrentPrice(), 42);
+    EXPECT_EQ(foodmaker->getCurrentPrice(), 19);
 
     foodmaker->upgrade();
 
-    EXPECT_EQ(foodmaker->getCurrentPrice(), 54);
+    EXPECT_EQ(foodmaker->getCurrentPrice(), 31);
     foodmaker->setMode(FoodDrinksMode::Drinks);
-    EXPECT_EQ(foodmaker->getCurrentPrice(), 36);
+    EXPECT_EQ(foodmaker->getCurrentPrice(), 23);
+
 }
 
 TEST_F(FoodmakerTest, UpgradeCost) {
-    EXPECT_EQ(foodmaker->getUpgradeCost(), 180);
+    EXPECT_EQ(foodmaker->getUpgradeCost(), 75);
     foodmaker->upgrade();
-    EXPECT_EQ(foodmaker->getUpgradeCost(), 360);
+    EXPECT_EQ(foodmaker->getUpgradeCost(), 150);
     foodmaker->upgrade();
-    EXPECT_EQ(foodmaker->getUpgradeCost(), 540);
+    EXPECT_EQ(foodmaker->getUpgradeCost(), 225);
 }
 
 TEST_F(FoodmakerTest, ProduceFood) {
     int initialFood = player->getAmountResource(Resource::Type::Food);
     int initialBalance = player->getWal().getBal();
-    
+
+    int currentPrice = foodmaker->getCurrentPrice();
+    int expectedPrice = static_cast<int>(currentPrice * 0.88);
+
     testing::internal::CaptureStdout();
     bool result = foodmaker->produce(*player);
     std::string output = testing::internal::GetCapturedStdout();
-    
+
     EXPECT_TRUE(result);
     EXPECT_EQ(player->getAmountResource(Resource::Type::Food), initialFood + 1);
-    EXPECT_EQ(player->getWal().getBal(), initialBalance - 30);
-
+    EXPECT_EQ(player->getWal().getBal(), initialBalance - expectedPrice);
     EXPECT_NE(output.find("produced 1 Food"), std::string::npos);
 }
 
@@ -87,18 +89,19 @@ TEST_F(FoodmakerTest, ProduceDrinks) {
     
     int initialDrinks = player->getAmountResource(Resource::Type::Drinks);
     int initialBalance = player->getWal().getBal();
-    
+
+    int currentPrice = foodmaker->getCurrentPrice();
+    int expectedPrice = static_cast<int>(currentPrice * 0.88);
+
     testing::internal::CaptureStdout();
     bool result = foodmaker->produce(*player);
     std::string output = testing::internal::GetCapturedStdout();
-    
+
     EXPECT_TRUE(result);
     EXPECT_EQ(player->getAmountResource(Resource::Type::Drinks), initialDrinks + 1);
-    EXPECT_EQ(player->getWal().getBal(), initialBalance - 20);
-
+    EXPECT_EQ(player->getWal().getBal(), initialBalance - expectedPrice);  // -6, не -20
     EXPECT_NE(output.find("produced 1 Drinks"), std::string::npos);
 }
-
 TEST_F(FoodmakerTest, ShowAvailableModes) {
     testing::internal::CaptureStdout();
     Foodmaker::showAvailableModes();
