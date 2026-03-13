@@ -7,16 +7,13 @@ FuelMaker::FuelMaker(int x, int y) {
 }
 
 int FuelMaker::getCurrentPrice() const {
-    return 20 + (level_ - 1) * 10;
+    return 18 + (level_ - 1) * 10;
 }
 
 
-int FuelMaker::getFuelPrice() const {
-    return 20 + (level_ - 1) * 10;
-} //cost of fuel increase with the level
 
 bool FuelMaker::produce(InformationPlayer& player) {
-    int price = getFuelPrice();
+    int price = getCurrentPrice();
     int amount = 1;
 
     player.addResource(Resource::Fuel, amount);
