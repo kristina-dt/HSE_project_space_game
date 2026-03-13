@@ -20,8 +20,8 @@ public:
     int getResourceAmount(Resource::Type type) const;
     InformationPlayer (const std::string& namepla, float px, float py);
     std::string getName()const;
-    constexpr float getX()const{return posX;};
-    constexpr float getY()const{return posY;};
+    float getX()const{return posX;};
+    float getY()const{return posY;};
     wallet& getWal();
     void SetPosition(float x, float y);
     int getAmountResource(Resource::Type type) const;
