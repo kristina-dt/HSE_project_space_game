@@ -1,6 +1,8 @@
 #include "../include/GameEngine.h"
 #include <random>
+#include "Foodmaker.h"
 #include "ResourceOrder.h"
+#include <optional>
 
 std::unique_ptr<Order> GameEngine::generateRandomOrder() {
     std::uniform_int_distribution<int> resourceDist(0, 4);
@@ -73,11 +75,22 @@ GameEngine::GameEngine(){
     }
 }
 
-void GameEngine::run(InformationPlayer& player) {
+void GameEngine::run(InformationPlayer& player, Map& mapp) {
+    float cellSize=28.0f;
     sf::RenderWindow window(sf::VideoMode({WIDTH * CELL_SIZE, HEIGHT * CELL_SIZE}), "SpaceGame");
     window.setFramerateLimit(60);
+
     std::uniform_int_distribution<int> chanceDist(0, 500);
     std::vector<float> Gates = { 4.5f * 28.0f, 11.5f * 28.0f, 18.5f * 28.0f, 25.5f * 28.0f };
+
+    sf::FloatRect foodmakerZone(
+        {1.0f * cellSize,
+        18.0f * cellSize},
+        {2 * cellSize,
+        4 * cellSize}
+    );
+
+    mapp.loadResources();
 
     while (window.isOpen() && keepRunning) {
         while (const std::optional event = window.pollEvent()) {
@@ -86,12 +99,14 @@ void GameEngine::run(InformationPlayer& player) {
             }
         }
         movements(player);
+
+        sf::FloatRect playerBounds({player.getX() * cellSize,player.getY() * cellSize},{cellSize,cellSize});
         for (size_t i = 0; i < ships_.size(); ++i) {
             auto& ship = ships_[i];
             if (ship.isActive()&& !ship.hasOrder()) {
                 if (chanceDist(rng_) == 0) ship.setOrder(generateRandomOrder());
             }
-            float station = 0.0f;
+            float station;
             if (ship.hasOrder() && i < Gates.size()) {
                 station = Gates[i];
             }
@@ -100,6 +115,9 @@ void GameEngine::run(InformationPlayer& player) {
         }
         window.clear(sf::Color::Black);
         Map::draw(window, map, player, ships_);
+        if (playerBounds.findIntersection(foodmakerZone)) {
+            mapp.drawWindow(window);
+        }
         window.display();
     }
 }

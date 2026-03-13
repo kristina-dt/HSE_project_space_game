@@ -16,7 +16,7 @@ InformationPlayer createPlayer() {
     std::cout << "\n Character created!\n";
     std::cout << "Starting balance: 100 credits\n";
 
-    return InformationPlayer(name, 5.0f, 5.0f);
+    return InformationPlayer(name, 15.5f, 20.0f);
 }
 void showPlayerStatus(const InformationPlayer& player, ProductionManager& manager) {
     std::cout << "\n======= PLAYER STATUS =======\n";
@@ -314,9 +314,10 @@ int main() {
     showPlayerStatus(player, manager);
 
     std::cout << "\nGame finished.\n";
-    // InformationPlayer player("alex",15.5f, 20.0f);
-    // GameEngine engine;
-    // engine.run(player);
+    //InformationPlayer player("alex",15.5f, 20.0f);
+    GameEngine engine;
+    Map map;
+    engine.run(player,map);
 
     return 0;
 }

@@ -1,6 +1,23 @@
 #include "../include/Map.h"
 #include "GameEngine.h"
 #include <iostream>
+bool Map::loadResources() {
+    return font.openFromFile("fonts/DeluxePaint-Regular.otf");
+}
+void Map::drawWindow(sf::RenderWindow &window) {
+    const float cellSize = 28.0f;
+    sf::RectangleShape text_window(sf::Vector2f(cellSize*5, cellSize*2));
+    text_window.setFillColor(sf::Color::Green);
+    text_window.setPosition({13.0f*cellSize, 10.0f*cellSize});
+
+    sf::Text text(font, "Foodmaker", 6);
+    text.setFillColor(sf::Color::Black);
+    text.setPosition({10.0f * cellSize + 1.f, 10.0f * cellSize + 5.f});
+
+    window.draw(text_window);
+    window.draw(text);
+
+}
 
 void Map::draw(sf::RenderWindow &window, const std::vector<std::string> &map, const InformationPlayer &player, const std::vector<Ship>& ships) {
     const float cellSize = 28.0f;
@@ -45,6 +62,7 @@ void Map::draw(sf::RenderWindow &window, const std::vector<std::string> &map, co
 
     sf::RectangleShape pShape(sf::Vector2f( cellSize - 4, cellSize - 4));
     pShape.setFillColor(sf::Color::White);
-    pShape.setPosition({player.getX() * cellSize + 2, player.getY() * cellSize + 2});
+    pShape.setPosition({player.getX() * cellSize, player.getY() * cellSize});
     window.draw(pShape);
+
 }

@@ -51,3 +51,4 @@ add_executable(SpaceGame main.cpp
 target_include_directories(SpaceGame PUBLIC include)
 target_link_libraries(SpaceGame SFML::Graphics SFML::Window SFML::System)
 add_subdirectory(tests)
+file(COPY "${CMAKE_CURRENT_SOURCE_DIR}/fonts" DESTINATION "${CMAKE_CURRENT_BINARY_DIR}")
