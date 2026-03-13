@@ -11,7 +11,6 @@ int FuelMaker::getCurrentPrice() const {
 }
 
 
-
 bool FuelMaker::produce(InformationPlayer& player) {
     int price = getCurrentPrice();
     int amount = 1;

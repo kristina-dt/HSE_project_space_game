@@ -190,7 +190,7 @@ int ProductionManager::getProductPrice(int index) const {
 
     std::string type = appliances_[index]->getType();
 
-    if (type == "FuelMaker") {
+    if (type == "Fuel Synthesizer") {
         const FuelMaker* maker = static_cast<const FuelMaker*>(appliances_[index].get());
         return maker->getCurrentPrice();
     }
