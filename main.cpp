@@ -298,6 +298,24 @@ bool ReplShop(InformationPlayer& player) {
         std::cout << "Replenishment cancelled.\n";
         return false;
     }
+    std::cout << "\nAvailable resources to replenishment:\n";
+    std::cout << "1. Fuel (current: " << player.getAmountResource(Resource::Type::Fuel) << " units)\n";
+    std::cout << "2. Food (current: " << player.getAmountResource(Resource::Type::Food) << " units)\n";
+    std::cout << "3. Drinks (current: " << player.getAmountResource(Resource::Type::Drinks) << " units)\n";
+    std::cout << "4. Details (current: " << player.getAmountResource(Resource::Type::Details) << " units)\n";
+    std::cout << "5. Decorations (current: " << player.getAmountResource(Resource::Type::Decorations) << " units)\n";
+    std::cout << "0. Cancel\n";
+    int choice;
+    std::cout << "\nSelect resource to restock (0-5): ";
+    std::cin>>choice;
+    if (choice == 0) {
+        std::cout << "Replenishment cancelled.\n";
+        return false;
+    }
+
+
+
+}
 int main() {
     InformationPlayer player = createPlayer();
     ProductionManager manager;
