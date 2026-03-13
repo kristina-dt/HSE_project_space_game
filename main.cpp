@@ -143,15 +143,17 @@ void processOrder(InformationPlayer& player, ProductionManager& manager, Ship& s
 }
 bool upgradeStation(ProductionManager& productionManager, InformationPlayer& player, size_t stationIndex) {
     if (stationIndex >= productionManager.getCount()) {
-        std::cout << "Eroor: appliance with index " << stationIndex << " does not exist!\n";
-        std::cout << "   Availiable index: 0-" << productionManager.getCount() - 1 << "\n";
+        std::cout << "Error: appliance with index " << stationIndex << " does not exist!\n";
+        std::cout << "   Available index: 0-" << productionManager.getCount() - 1 << "\n";
         return false;
-    }//checking if index of appliance is correct
+    }
+
     std::shared_ptr<Appliance> appliance = productionManager.getAppliance(stationIndex);
     if (!appliance) {
         std::cout << "Error: could not get access to appliance\n";
         return false;
-    } //get pointer on appliance
+    }
+
     std::string stationType = appliance->getType();
     int currentLevel = appliance->getLevel();
     int upgradeCost = appliance->getUpgradeCost();
@@ -165,27 +167,21 @@ bool upgradeStation(ProductionManager& productionManager, InformationPlayer& pla
     std::cout << "   • Current level: " << currentLevel << "\n";
     std::cout << "   • Next level: " << (currentLevel + 1) << "\n";
 
-    //For appliance that has type
-    if (stationType == "PartAssembler") {
-        std::shared_ptr<PartAssembler> assembler = std::dynamic_pointer_cast<PartAssembler>(appliance);
-        if (assembler) {
-            std::cout << "   • Current mode: " << assembler->getModeName() << "\n";
-            std::cout << "   • Current cost of a product: " << assembler->getCurrentPrice() << "\n";
-        }
+    std::string productName = productionManager.getProductName(stationIndex);
+    int productPrice = productionManager.getProductPrice(stationIndex);
+
+    if (stationType == "FuelMaker" || stationType == "Fuel Synthesizer") {
+        std::cout << "   • Current cost of fuel: " << productPrice << "\n";
+    }
+    else if (stationType == "PartAssembler") {
+        std::cout << "   • Current mode: " << productName << "\n";
+        std::cout << "   • Current cost of " << productName << ": " << productPrice << " credits\n";
     }
     else if (stationType == "FoodAndDrinksStation") {
-        std::shared_ptr<Foodmaker> foodmaker = std::dynamic_pointer_cast<Foodmaker>(appliance);
-        if (foodmaker) {
-            std::cout << "   • Current mode: " << foodmaker->getModeName() << "\n";
-            std::cout << "   • Current cost of a product: " << foodmaker->getCurrentPrice() << "\n";
-        }
+        std::cout << "   • Current mode: " << productName << "\n";
+        std::cout << "   • Current cost of " << productName << ": " << productPrice << " credits\n";
     }
-    else if (stationType == "FuelMaker" || stationType == "Fuel Synthesizer") {
-        std::shared_ptr<FuelMaker> fuelMaker = std::dynamic_pointer_cast<FuelMaker>(appliance);
-        if (fuelMaker) {
-            std::cout << "   • Current cost of fuel: " << fuelMaker->getFuelPrice() << "\n";
-        }
-    }
+
     std::cout << "   • Cost of upgrade: " << upgradeCost << " credits\n";
     std::cout << "   • Your balance: " << playerBalance << " credits\n";
 
@@ -194,18 +190,21 @@ bool upgradeStation(ProductionManager& productionManager, InformationPlayer& pla
         std::cout << "   You need: " << (upgradeCost - playerBalance) << " credits\n";
         return false;
     }
+
     if (currentLevel >= 10) {
-        std::cout << "\n Appliance reached maximum level(10)!\n";
+        std::cout << "\n Appliance reached maximum level (10)!\n";
         return false;
     }
-    std::cout << "\n Confirm upgrade: Yes/No";
+
+    std::cout << "\n Confirm upgrade (yes/no): ";
     std::string confirm;
     std::cin >> confirm;
 
-    if (confirm != "yes" && confirm != "Yes" && confirm != "YES") {
-        std::cout << " Upgrade denied.\n";
+    if (confirm != "yes" && confirm != "Yes" && confirm != "YES" && confirm != "y") {
+        std::cout << " Upgrade cancelled.\n";
         return false;
     }
+
     try {
         player.getWal().withdraw(upgradeCost);
 
@@ -214,29 +213,24 @@ bool upgradeStation(ProductionManager& productionManager, InformationPlayer& pla
         int newLevel = appliance->getLevel();
 
         std::cout << "\n" << std::string(50, '=') << "\n";
-        std::cout << " UPGRADE IS SUCCESSFUL!\n";
+        std::cout << " UPGRADE SUCCESSFUL!\n";
         std::cout << std::string(50, '=') << "\n";
         std::cout << "   • Appliance: " << stationType << "\n";
         std::cout << "   • Level: " << oldLevel << " → " << newLevel << "\n";
-        std::cout << "\n New cost of products:\n";
 
-        if (stationType == "PartAssembler") {
-            std::shared_ptr<PartAssembler> assembler = std::dynamic_pointer_cast<PartAssembler>(appliance);
-            if (assembler) {
-                std::cout << "   • New cost of details: " << assembler->getCurrentPrice() << " credits\n";
-            }
+        int newPrice = productionManager.getProductPrice(stationIndex);
+        std::string newProductName = productionManager.getProductName(stationIndex);
+
+        std::cout << "\n New prices:\n";
+
+        if (stationType == "FuelMaker" || stationType == "Fuel Synthesizer") {
+            std::cout << "   • New cost of fuel: " << newPrice << " credits\n";
+        }
+        else if (stationType == "PartAssembler") {
+            std::cout << "   • New cost of " << newProductName << ": " << newPrice << " credits\n";
         }
         else if (stationType == "FoodAndDrinksStation") {
-            std::shared_ptr<Foodmaker> foodmaker = std::dynamic_pointer_cast<Foodmaker>(appliance);
-            if (foodmaker) {
-                std::cout << "   • New cost of products: " << foodmaker->getCurrentPrice() << " credits\n";
-            }
-        }
-        else if (stationType == "FuelMaker" || stationType == "Fuel Synthesizer") {
-            std::shared_ptr<FuelMaker> fuelMaker = std::dynamic_pointer_cast<FuelMaker>(appliance);
-            if (fuelMaker) {
-                std::cout << "   • New cost of fuel: " << fuelMaker->getFuelPrice() << " credits\n";
-            }
+            std::cout << "   • New cost of " << newProductName << ": " << newPrice << " credits\n";
         }
 
         return true;
@@ -248,7 +242,8 @@ bool upgradeStation(ProductionManager& productionManager, InformationPlayer& pla
         std::cout << "\n Unexpected error: " << e.what() << "\n";
         return false;
     }
-};
+}
+
 
 bool upgradeStationByType(ProductionManager& productionManager, InformationPlayer& player, const std::string& stationType) {
     for (size_t i = 0; i < productionManager.getCount(); ++i) {

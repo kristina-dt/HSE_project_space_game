@@ -63,7 +63,7 @@ bool Foodmaker::produce(InformationPlayer& player) {
 
     player.addResource(resourceType, 1);
 
-    std::cout << "🍳 " << name_ << " (Lvl " << level_ << ") produced 1 " << typeName << "\n";
+    std::cout  << name_ << " (Lvl " << level_ << ") produced 1 " << typeName << "\n";
     std::cout << "   Price: " << price << " credits\n";
     std::cout << "   Money left: " << wallet.getBal() << "\n";
     std::cout << "   Total " << typeName << ": "
