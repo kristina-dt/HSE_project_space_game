@@ -3,6 +3,7 @@
 #include "Foodmaker.h"
 #include "ResourceOrder.h"
 #include <optional>
+#include <StartScreen.h>
 
 std::unique_ptr<Order> GameEngine::generateRandomOrder() {
     std::uniform_int_distribution<int> resourceDist(0, 4);
@@ -76,51 +77,70 @@ GameEngine::GameEngine(){
 }
 
 void GameEngine::run(InformationPlayer& player, Map& mapp) {
-    float cellSize=28.0f;
-    sf::RenderWindow window(sf::VideoMode({WIDTH * CELL_SIZE, HEIGHT * CELL_SIZE}), "SpaceGame");
+    float cellSize = 28.0f;
+    sf::RenderWindow window(sf::VideoMode({WIDTH * CELL_SIZE, HEIGHT * CELL_SIZE}),"SpaceGame");
     window.setFramerateLimit(60);
 
+    sf::Font font;
+    font.openFromFile("fonts/DeluxePaint-Regular.otf");
+    StartScreen startScreen(font);
+    startScreen.setPosition({100.f, 100.f});
+
+    bool isGameStarted = false;
+
     std::uniform_int_distribution<int> chanceDist(0, 500);
-    std::vector<float> Gates = { 4.5f * 28.0f, 11.5f * 28.0f, 18.5f * 28.0f, 25.5f * 28.0f };
+    std::vector<float> Gates = {4.5f * 28.0f, 11.5f * 28.0f, 18.5f * 28.0f, 25.5f * 28.0f};
 
-    sf::FloatRect foodmakerZone(
-        {1.0f * cellSize,
-        18.0f * cellSize},
-        {2 * cellSize,
-        4 * cellSize}
-    );
+    sf::FloatRect foodmakerZone({1.0f * cellSize, 18.0f * cellSize},{2 * cellSize, 4 * cellSize});
+    //mapp.loadResources();
 
-    mapp.loadResources();
-
-    while (window.isOpen() && keepRunning) {
+    while (window.isOpen()) {
         while (const std::optional event = window.pollEvent()) {
-            if (event->is<sf::Event::Closed>()) {
+            if (event->is<sf::Event::Closed>())
                 window.close();
+            if (!isGameStarted) {
+                startScreen.typed(*event);
+                if (const auto* textEvent = event->getIf<sf::Event::TextEntered>()) {
+                    if (textEvent->unicode == 32 && !startScreen.getText().empty()) {
+                        isGameStarted = true;
+                    }
+                }
             }
         }
-        movements(player);
 
-        sf::FloatRect playerBounds({player.getX() * cellSize,player.getY() * cellSize},{cellSize,cellSize});
-        for (size_t i = 0; i < ships_.size(); ++i) {
-            auto& ship = ships_[i];
-            if (ship.isActive()&& !ship.hasOrder()) {
-                if (chanceDist(rng_) == 0) ship.setOrder(generateRandomOrder());
-            }
-            float station;
-            if (ship.hasOrder() && i < Gates.size()) {
-                station = Gates[i];
-            }
-
-            ship.update(station);
-        }
         window.clear(sf::Color::Black);
-        Map::draw(window, map, player, ships_);
-        if (playerBounds.findIntersection(foodmakerZone)) {
-            mapp.drawWindow(window);
+        if (!isGameStarted) {
+            startScreen.drawTo(window);
         }
+        else {
+            movements(player);
+            sf::FloatRect playerBounds({player.getX() * cellSize, player.getY() * cellSize},{cellSize, cellSize});
+            for (size_t i = 0; i < ships_.size(); ++i) {
+                auto& ship = ships_[i];
+                if (ship.isActive() && !ship.hasOrder()) {
+                    if (chanceDist(rng_) == 0)
+                        ship.setOrder(generateRandomOrder());
+                }
+                float station = 0.f;
+                if (ship.hasOrder() && i < Gates.size()) {
+                    station = Gates[i];
+                }
+                ship.update(station);
+            }
+
+            Map::draw(window, map, player, ships_);
+
+            if (playerBounds.findIntersection(foodmakerZone)) {
+                mapp.prepareWindow(WindowType::Food);
+                mapp.drawWindow(window);
+            }
+        }
+
         window.display();
     }
 }
+
+
 
 
 

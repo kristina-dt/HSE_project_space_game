@@ -45,6 +45,8 @@ add_executable(SpaceGame main.cpp
         include/FoodMaker.h
         src/Appliance.cpp
         include/Appliance.h
+        src/StartScreen.cpp
+        include/StartScreen.h
 
 )
 

@@ -22,37 +22,32 @@ Ship::Ship(float startX, float y, float speed, std::unique_ptr<Order> order)
       order_(std::move(order)) {}
 
 void Ship::update(float station) {
-    if (!active_) {
-        return;
-    }
+    if (!active_) return;
 
     if (std::abs(x_ - station) > speed_) {
-        if (x_ < station) {
-            x_ += speed_;
-        } else {
-            x_ -= speed_;
-        }
+        x_ += (x_ < station) ? speed_ : -speed_;
     } else {
         x_ = station;
     }
 
     if (hasOrder()) {
-        if (y_ < DOCK_X) {
-            y_ += speed_;
-            if (y_ > DOCK_X) {
-                y_ = DOCK_X;
-            }
-        } else if (y_ > DOCK_X) {
-            y_ -= speed_;
-            if (y_ < DOCK_X) {
-                y_ = DOCK_X;
-            }
+        if (std::abs(y_ - DOCK_X) > speed_) {
+            y_ += (y_ < DOCK_X) ? speed_ : -speed_;
+        } else {
+            y_ = DOCK_X;
+        }
+    } else {
+        float cruiseY = 5.0f;
+        if (std::abs(y_ - cruiseY) > speed_) {
+            y_ += (y_ < cruiseY) ? speed_ : -speed_;
+        } else {
+            y_ = cruiseY;
         }
     }
 }
 
 bool Ship::isDocked() const noexcept {
-    return x_ <= DOCK_X;
+    return std::abs(y_ - DOCK_X) < 0.1f;
 }
 
 bool Ship::hasOrder() const noexcept {

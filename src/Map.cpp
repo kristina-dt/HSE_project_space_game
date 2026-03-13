@@ -1,26 +1,62 @@
 #include "../include/Map.h"
 #include "GameEngine.h"
 #include <iostream>
-bool Map::loadResources() {
-    return font.openFromFile("fonts/DeluxePaint-Regular.otf");
+Map::Map(): text(font, "", 18), foodmaker(1,18){
+    font.openFromFile("fonts/DeluxePaint-Regular.otf");
+
+    text.setFillColor(sf::Color::White);
+    text.setPosition({110.f, 110.f});
+
+    text_window.setSize({300.f, 200.f});
+    text_window.setFillColor(sf::Color(0, 0, 0, 200));
+    text_window.setOutlineThickness(2.f);
+    text_window.setOutlineColor(sf::Color::White);
+    text_window.setPosition({100.f, 100.f});
 }
+
+// bool Map::loadResources() {
+//     return font.openFromFile("fonts/DeluxePaint-Regular.otf");
+// }
+void Map::prepareWindow(WindowType type) {
+    switch (type) {
+        case WindowType::Food:
+                switch (m_currentFoodMode) {
+                    case FoodMakerWindow::Name:
+                        text.setString("=== BUILDING ===\n\nName: Food Maker");
+                        break;
+
+                    case FoodMakerWindow::Food:
+                        text.setString("=== FOOD MODE ===\n\nCurrent mode: "
+                            + foodmaker.getModeName() + "\nFood price: " + std::to_string(foodmaker.getCurrentPrice()) + " credits");
+                        break;
+
+                    case FoodMakerWindow::Drinks:
+                        text.setString("=== DRINKS MODE ===\n\nCurrent mode:"
+                            + foodmaker.getModeName() +"\nDrinks price: " + std::to_string(foodmaker.getCurrentPrice()) +  " credits" );
+                        break;
+
+                    case FoodMakerWindow::Level:
+                        text.setString("=== LEVEL INFO ===\n\nLevel:"
+                            + std::to_string(foodmaker.getLevel())
+                            + "\nUpgrade cost: " +  std::to_string(foodmaker.getUpgradeCost()) +  " credits");
+                        break;
+
+                    case FoodMakerWindow::CurrentPrice:
+                        text.setString("=== PRICE INFO ===\n\nCurrent mode:"
+                            + foodmaker.getModeName()+ "\nPrice: " + std::to_string(foodmaker.getCurrentPrice()) + " credits" );
+                        break;
+                }
+            }
+    }
+
+
 void Map::drawWindow(sf::RenderWindow &window) {
-    const float cellSize = 28.0f;
-    sf::RectangleShape text_window(sf::Vector2f(cellSize*5, cellSize*2));
-    text_window.setFillColor(sf::Color::Green);
-    text_window.setPosition({13.0f*cellSize, 10.0f*cellSize});
-
-    sf::Text text(font, "Foodmaker", 6);
-    text.setFillColor(sf::Color::Black);
-    text.setPosition({10.0f * cellSize + 1.f, 10.0f * cellSize + 5.f});
-
     window.draw(text_window);
     window.draw(text);
-
 }
 
 void Map::draw(sf::RenderWindow &window, const std::vector<std::string> &map, const InformationPlayer &player, const std::vector<Ship>& ships) {
-    const float cellSize = 28.0f;
+    const float cellSize=28.0f;
     sf::RectangleShape tile(sf::Vector2f(cellSize, cellSize));
 
     for (int y = 0; y < map.size(); ++y) {
@@ -64,5 +100,4 @@ void Map::draw(sf::RenderWindow &window, const std::vector<std::string> &map, co
     pShape.setFillColor(sf::Color::White);
     pShape.setPosition({player.getX() * cellSize, player.getY() * cellSize});
     window.draw(pShape);
-
 }
