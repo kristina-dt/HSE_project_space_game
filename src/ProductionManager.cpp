@@ -168,7 +168,7 @@ std::string ProductionManager::getProductName(int index) const {
     }
     std::string type = appliances_[index]->getType();
 
-    if (type == "FuelMaker") {
+    if (type == "Fuel Synthesizer") {
         return "Fuel";
     }
     else if (type == "PartAssembler") {

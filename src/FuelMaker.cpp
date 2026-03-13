@@ -26,7 +26,7 @@ bool FuelMaker::produce(InformationPlayer& player) {
 }
 
 int FuelMaker::getUpgradeCost() const {
-    return 150 * level_;
+    return 60 * level_;
 }
 
 std::string FuelMaker::getType() const {

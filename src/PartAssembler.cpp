@@ -54,7 +54,7 @@ bool PartAssembler::produce(InformationPlayer& player) {
 }
 
 int PartAssembler::getUpgradeCost() const {
-    return 200 * level_;
+    return 50 * level_;
 }
 
 void PartAssembler::showAvailableModes() {

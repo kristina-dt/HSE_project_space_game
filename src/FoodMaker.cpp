@@ -73,7 +73,7 @@ bool Foodmaker::produce(InformationPlayer& player) {
 }
 
 int Foodmaker::getUpgradeCost() const {
-    return 180 * level_;
+    return 75 * level_;
 }
 
 void Foodmaker::showAvailableModes() {
