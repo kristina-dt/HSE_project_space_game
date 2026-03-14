@@ -39,7 +39,7 @@ Resource::Type Foodmaker::getResourceType() const {
 int Foodmaker::getCurrentPrice() const {
     switch(currentMode_) {
         case FoodDrinksMode::Food:
-            return 7 + (level_ - 1) * 12;
+            return 7 + (level_ - 1) * 8;
         case FoodDrinksMode::Drinks:
             return 7 + (level_ - 1) * 8;
         default:
