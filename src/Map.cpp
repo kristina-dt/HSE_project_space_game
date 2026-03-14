@@ -1,54 +1,60 @@
 #include "../include/Map.h"
 #include "GameEngine.h"
 #include <iostream>
-Map::Map(): text(font, "", 18), foodmaker(1,18){
+Map::Map(): text(font, "", 12), foodmaker(1,18), fuelmaker(1,3), partassembler(1,3){
     font.openFromFile("fonts/DeluxePaint-Regular.otf");
 
     text.setFillColor(sf::Color::White);
-    text.setPosition({110.f, 110.f});
+    text.setPosition({8*28.0f+1.5*28.0f, 84.f+28.0f});
 
-    text_window.setSize({300.f, 200.f});
+    text_window.setSize({450.f, 400.f});
     text_window.setFillColor(sf::Color(0, 0, 0, 200));
     text_window.setOutlineThickness(2.f);
     text_window.setOutlineColor(sf::Color::White);
-    text_window.setPosition({100.f, 100.f});
+    text_window.setPosition({8*28.0f, 3*28.0f});
 }
 
-// bool Map::loadResources() {
-//     return font.openFromFile("fonts/DeluxePaint-Regular.otf");
-// }
+void Map::updateAmount(WindowType type) {
+    switch (type) {
+        case WindowType::Food:
+            foodNumber+=1;
+            break;
+        case WindowType::Fuel:
+            fuelNumber+=1;
+            break;
+        case WindowType::PartAssembler:
+            partNumber+=1;
+            break;
+    }
+}
+
 void Map::prepareWindow(WindowType type) {
     switch (type) {
         case WindowType::Food:
-                switch (m_currentFoodMode) {
-                    case FoodMakerWindow::Name:
-                        text.setString("=== BUILDING ===\n\nName: Food Maker");
-                        break;
-
-                    case FoodMakerWindow::Food:
-                        text.setString("=== FOOD MODE ===\n\nCurrent mode: "
-                            + foodmaker.getModeName() + "\nFood price: " + std::to_string(foodmaker.getCurrentPrice()) + " credits");
-                        break;
-
-                    case FoodMakerWindow::Drinks:
-                        text.setString("=== DRINKS MODE ===\n\nCurrent mode:"
-                            + foodmaker.getModeName() +"\nDrinks price: " + std::to_string(foodmaker.getCurrentPrice()) +  " credits" );
-                        break;
-
-                    case FoodMakerWindow::Level:
-                        text.setString("=== LEVEL INFO ===\n\nLevel:"
-                            + std::to_string(foodmaker.getLevel())
-                            + "\nUpgrade cost: " +  std::to_string(foodmaker.getUpgradeCost()) +  " credits");
-                        break;
-
-                    case FoodMakerWindow::CurrentPrice:
-                        text.setString("=== PRICE INFO ===\n\nCurrent mode:"
-                            + foodmaker.getModeName()+ "\nPrice: " + std::to_string(foodmaker.getCurrentPrice()) + " credits" );
-                        break;
-                }
-            }
+            text.setString("====== FOOD MAKER ======\n\nLevel:"+ std::to_string(foodmaker.getLevel())+
+                "\n\nInventory:\n\tFood: "+std::to_string(getFn())+"\n\tDrinks: "+std::to_string(getFn())
+                +"\n\nSell Price:\n\tFood: " + std::to_string(foodmaker.getCurrentPrice()) + " credits\n\tDrinks: "
+                + std::to_string(foodmaker.getCurrentPrice()) +  " credits\n\nCost of restock:\n\tFood: "+
+                std::to_string(foodmaker.getCurrentPrice()*0.7)+"\n\tDrinks: "+std::to_string(foodmaker.getCurrentPrice()*0.7)
+                +"\n\nUpgrade cost: " +  std::to_string(foodmaker.getUpgradeCost()) +  " credits");
+            break;
+        case WindowType::PartAssembler:
+            text.setString("==== PART ASSEMBLER ====\n\nLevel:"+ std::to_string(partassembler.getLevel())+
+                "\n\nInventory:\n\tDetail: "+std::to_string(getPn())+"\n\tDecoration: "+std::to_string(getPn())
+                +"\n\nSell Price:\n\tDetail: " + std::to_string(partassembler.getCurrentPrice()) + " credits\n\tDecoration: "
+                + std::to_string(partassembler.getCurrentPrice()) +  " credits\n\nCost of restock:\n\tDetail: "+
+                std::to_string(partassembler.getCurrentPrice()*0.7)+"\n\tDecoration: "+std::to_string(partassembler.getCurrentPrice()*0.7)
+                +"\n\nUpgrade cost: " +  std::to_string(partassembler.getUpgradeCost()) +  " credits");
+            break;
+        case WindowType::Fuel:
+            text.setString("=== FUEL SYNTHESIZER ===\n\nLevel:"+ std::to_string(fuelmaker.getLevel())+
+                "\n\nInventory:\n\tFuel: "+std::to_string(getFln())+"\n\nSell Price:\n\tFuel: "
+                + std::to_string(fuelmaker.getCurrentPrice()) + " credits\n\nCost of restock:\n\tFuel: "+
+                std::to_string(fuelmaker.getCurrentPrice()*0.7)+
+                "\n\nUpgrade cost: " +  std::to_string(fuelmaker.getUpgradeCost()) +  " credits");
+            break;
     }
-
+}
 
 void Map::drawWindow(sf::RenderWindow &window) {
     window.draw(text_window);

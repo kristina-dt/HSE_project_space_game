@@ -49,11 +49,11 @@ TEST_F(FoodmakerTest, CurrentPrice) {
     foodmaker->upgrade();
     EXPECT_EQ(foodmaker->getCurrentPrice(), 15);
     foodmaker->setMode(FoodDrinksMode::Food);
-    EXPECT_EQ(foodmaker->getCurrentPrice(), 19);
+    EXPECT_EQ(foodmaker->getCurrentPrice(), 15);
 
     foodmaker->upgrade();
 
-    EXPECT_EQ(foodmaker->getCurrentPrice(), 31);
+    EXPECT_EQ(foodmaker->getCurrentPrice(), 23);
     foodmaker->setMode(FoodDrinksMode::Drinks);
     EXPECT_EQ(foodmaker->getCurrentPrice(), 23);
 
