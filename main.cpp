@@ -3,7 +3,7 @@
 #include "include/GameEngine.h"
 #include <string>
 #include <random>
-
+#include <algorithm>
 #include "ResourceOrder.h"
 #include "include/InformationPlayer.h"
 #include "include/ProductionManager.h"
@@ -217,6 +217,18 @@ bool upgradeStation(ProductionManager& productionManager, InformationPlayer& pla
 
         int oldLevel = currentLevel;
         appliance->upgrade();
+        int newPrice = productionManager.getProductPrice(stationIndex);
+
+        if (productName == "Fuel")
+            player.sellSetPrice(Resource::Type::Fuel, newPrice);
+        else if (productName == "Food")
+            player.sellSetPrice(Resource::Type::Food, newPrice);
+        else if (productName == "Drinks")
+            player.sellSetPrice(Resource::Type::Drinks, newPrice);
+        else if (productName == "Details")
+            player.sellSetPrice(Resource::Type::Details, newPrice);
+        else if (productName == "Decorations")
+            player.sellSetPrice(Resource::Type::Decorations, newPrice);
         int newLevel = appliance->getLevel();
 
         std::cout << "\n" << std::string(50, '=') << "\n";
@@ -225,7 +237,6 @@ bool upgradeStation(ProductionManager& productionManager, InformationPlayer& pla
         std::cout << "   • Appliance: " << stationType << "\n";
         std::cout << "   • Level: " << oldLevel << " → " << newLevel << "\n";
 
-        int newPrice = productionManager.getProductPrice(stationIndex);
         std::string newProductName = productionManager.getProductName(stationIndex);
 
         std::cout << "\n New prices:\n";
