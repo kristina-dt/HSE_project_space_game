@@ -30,10 +30,10 @@ public:
         return foodNumber;
     }
     int getFln() {
-        return foodNumber;
+        return fuelNumber;
     }
     int getPn() {
-        return foodNumber;
+        return partNumber;
     }
     void updateAmount(WindowType type);
 

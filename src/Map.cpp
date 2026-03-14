@@ -17,13 +17,13 @@ Map::Map(): text(font, "", 12), foodmaker(1,18), fuelmaker(1,3), partassembler(1
 void Map::updateAmount(WindowType type) {
     switch (type) {
         case WindowType::Food:
-            foodNumber+=1;
+            this->foodNumber+=1;
             break;
         case WindowType::Fuel:
-            fuelNumber+=1;
+            this->fuelNumber+=1;
             break;
         case WindowType::PartAssembler:
-            partNumber+=1;
+            this->partNumber+=1;
             break;
     }
 }
@@ -36,7 +36,7 @@ void Map::prepareWindow(WindowType type) {
                 +"\n\nSell Price:\n\tFood: " + std::to_string(foodmaker.getCurrentPrice()) + " credits\n\tDrinks: "
                 + std::to_string(foodmaker.getCurrentPrice()) +  " credits\n\nCost of restock:\n\tFood: "+
                 std::to_string(foodmaker.getCurrentPrice()*0.7)+"\n\tDrinks: "+std::to_string(foodmaker.getCurrentPrice()*0.7)
-                +"\n\nUpgrade cost: " +  std::to_string(foodmaker.getUpgradeCost()) +  " credits");
+                +"\n\nUpgrade cost: " +  std::to_string(foodmaker.getUpgradeCost()) +  " credits\n\n\n!Press E to make more Food!");
             break;
         case WindowType::PartAssembler:
             text.setString("==== PART ASSEMBLER ====\n\nLevel:"+ std::to_string(partassembler.getLevel())+
@@ -44,14 +44,14 @@ void Map::prepareWindow(WindowType type) {
                 +"\n\nSell Price:\n\tDetail: " + std::to_string(partassembler.getCurrentPrice()) + " credits\n\tDecoration: "
                 + std::to_string(partassembler.getCurrentPrice()) +  " credits\n\nCost of restock:\n\tDetail: "+
                 std::to_string(partassembler.getCurrentPrice()*0.7)+"\n\tDecoration: "+std::to_string(partassembler.getCurrentPrice()*0.7)
-                +"\n\nUpgrade cost: " +  std::to_string(partassembler.getUpgradeCost()) +  " credits");
+                +"\n\nUpgrade cost: " +  std::to_string(partassembler.getUpgradeCost()) +  " credits\n\n\n!Press E to make more Parts!");
             break;
         case WindowType::Fuel:
             text.setString("=== FUEL SYNTHESIZER ===\n\nLevel:"+ std::to_string(fuelmaker.getLevel())+
                 "\n\nInventory:\n\tFuel: "+std::to_string(getFln())+"\n\nSell Price:\n\tFuel: "
                 + std::to_string(fuelmaker.getCurrentPrice()) + " credits\n\nCost of restock:\n\tFuel: "+
                 std::to_string(fuelmaker.getCurrentPrice()*0.7)+
-                "\n\nUpgrade cost: " +  std::to_string(fuelmaker.getUpgradeCost()) +  " credits");
+                "\n\nUpgrade cost: " +  std::to_string(fuelmaker.getUpgradeCost()) +  " credits\n\n\n!Press E to make more Fuel!");
             break;
     }
 }

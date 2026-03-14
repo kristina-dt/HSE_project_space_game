@@ -132,13 +132,24 @@ void GameEngine::run(InformationPlayer& player, Map& mapp) {
             Map::draw(window, map, player, ships_);
 
             if (playerBounds.findIntersection(foodmakerZone)) {
+                if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::E)) {
+                    mapp.updateAmount(WindowType::Food);
+                }
                 mapp.prepareWindow(WindowType::Food);
                 mapp.drawWindow(window);
             }
+
             if (playerBounds.findIntersection(fuelmakerZone)) {
+                if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::E)) {
+                    mapp.updateAmount(WindowType::Fuel);
+                }
+                if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::T)) {
+                    mapp.updateAmount(WindowType::Fuel);
+                }
                 mapp.prepareWindow(WindowType::Fuel);
                 mapp.drawWindow(window);
             }
+
             if (playerBounds.findIntersection(partassemblerZone)) {
                 if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::E)) {
                     mapp.updateAmount(WindowType::PartAssembler);
@@ -152,9 +163,3 @@ void GameEngine::run(InformationPlayer& player, Map& mapp) {
         window.display();
     }
 }
-
-
-
-
-
-
