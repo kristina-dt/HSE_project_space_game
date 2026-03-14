@@ -45,25 +45,6 @@ Position ProductionManager::getAppliancePosition(int index) const {
 }
 
 
-void ProductionManager::produceAll(InformationPlayer& player) {
-    std::cout << "\n PRODUCTION CYCLE \n";
-
-    for (size_t i = 0; i < appliances_.size(); ++i) {
-        std::cout << "\n▶ Station #" << i << " (" << appliances_[i]->getType() << "):\n";
-        appliances_[i]->produce(player);
-    }
-
-    std::cout << "\n Production cycle completed!\n";
-}
-
-void ProductionManager::produceAt(size_t index, InformationPlayer& player) {
-    if (index < appliances_.size()) {
-        std::cout << "\n▶ Station #" << index << " (" << appliances_[index]->getType() << "):\n";
-        appliances_[index]->produce(player);
-    } else {
-        std::cout << "Invalid station index! Use 0-" << appliances_.size()-1 << "\n";
-    }
-}
 
 void ProductionManager::upgradeAppliance(size_t index, InformationPlayer& player) {
     if (index >= appliances_.size()) {
@@ -92,75 +73,7 @@ void ProductionManager::upgradeAppliance(size_t index, InformationPlayer& player
     }
 }
 
-void ProductionManager::configurePartAssembler(int index, int modeIndex) {
-    if (index < 0 || index >= static_cast<int>(appliances_.size())) {
-        std::cout << " Invalid station index!\n";
-        return;
-    }
 
-    if (appliances_[index]->getType() == "PartAssembler") {
-        PartAssembler* assembler = static_cast<PartAssembler*>(appliances_[index].get());
-
-        PartAssemblerMode mode;
-        std::string modeName;
-
-        switch(modeIndex) {
-            case 0:
-                mode = PartAssemblerMode::Details;
-                modeName = "Details";
-                break;
-            case 1:
-                mode = PartAssemblerMode::Decorations;
-                modeName = "Decorations";
-                break;
-            default:
-                std::cout << "Invalid mode! Use 0 (Details) or 1 (Decorations)\n";
-                return;
-        }
-
-        assembler->setMode(mode);
-        std::cout << " Part Assembler now produces: " << modeName << "\n";
-
-    } else {
-        std::cout << "Station #" << index << " is not a Part Assembler!\n";
-        std::cout << "   This station is: " << appliances_[index]->getType() << "\n";
-    }
-}
-
-void ProductionManager::configureFoodDrinksStation(int index, int modeIndex) {
-    if (index < 0 || index >= static_cast<int>(appliances_.size())) {
-        std::cout << "Invalid station index!\n";
-        return;
-    }
-
-    if (appliances_[index]->getType() == "FoodAndDrinksStation") {
-        Foodmaker* station = static_cast<Foodmaker*>(appliances_[index].get());
-
-        FoodDrinksMode mode;
-        std::string modeName;
-
-        switch(modeIndex) {
-            case 0:
-                mode = FoodDrinksMode::Food;
-                modeName = "Food";
-                break;
-            case 1:
-                mode = FoodDrinksMode::Drinks;
-                modeName = "Drinks";
-                break;
-            default:
-                std::cout << "Invalid mode! Use 0 (Food) or 1 (Drinks)\n";
-                return;
-        }
-
-        station->setMode(mode);
-        std::cout << "Food & Drinks Station now produces: " << modeName << "\n";
-
-    } else {
-        std::cout << "Station #" << index << " is not a Food & Drinks Station!\n";
-        std::cout << " This station is: " << appliances_[index]->getType() << "\n";
-    }
-}
 
 std::string ProductionManager::getProductName(int index) const {
     if (index < 0 || index >= static_cast<int>(appliances_.size())) {
