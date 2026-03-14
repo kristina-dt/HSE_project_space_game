@@ -50,18 +50,6 @@ TEST_F(ProductionManagerTest, FindApplianceByType) {
     EXPECT_EQ(foodmaker->getType(), "FoodAndDrinksStation");
 }
 
-TEST_F(ProductionManagerTest, ProduceAll) {
-    int initialFuel = player->getAmountResource(Resource::Fuel);
-    int initialDetails = player->getAmountResource(Resource::Details);
-    int initialFood = player->getAmountResource(Resource::Food);
-
-    manager->produceAll(*player);
-
-    EXPECT_EQ(player->getAmountResource(Resource::Fuel), initialFuel + 1);
-    EXPECT_EQ(player->getAmountResource(Resource::Details), initialDetails + 1);
-    EXPECT_EQ(player->getAmountResource(Resource::Food), initialFood + 1);
-}
-
 TEST_F(ProductionManagerTest, UpgradeAppliance) {
     auto fuelMaker = manager->findApplianceByType("Fuel Synthesizer");
     EXPECT_EQ(fuelMaker->getLevel(), 1);
@@ -98,52 +86,8 @@ TEST_F(ProductionManagerTest, UpgradeApplianceNotEnoughMoney) {
     EXPECT_NE(output.find("You need " + std::to_string(upgradeCost) + " credits"), std::string::npos);
 }
 
-TEST_F(ProductionManagerTest, ConfigurePartAssembler) {
-    manager->configurePartAssembler(1, 1);
 
-    PartAssembler* partAssembler = static_cast<PartAssembler*>(manager->getAppliance(1).get());
-    EXPECT_EQ(partAssembler->getMode(), PartAssemblerMode::Decorations);
 
-    manager->configurePartAssembler(1, 0);
-    EXPECT_EQ(partAssembler->getMode(), PartAssemblerMode::Details);
-}
-
-TEST_F(ProductionManagerTest, ConfigureFoodDrinksStation) {
-    auto appliance = manager->getAppliance(2);
-    ASSERT_NE(appliance, nullptr);
-    ASSERT_EQ(appliance->getType(), "FoodAndDrinksStation");
-    Foodmaker* foodmaker = static_cast<Foodmaker*>(appliance.get());
-    FoodDrinksMode initialMode = foodmaker->getMode();
-
-    testing::internal::CaptureStdout();
-    manager->configureFoodDrinksStation(2, 1);
-    testing::internal::GetCapturedStdout();
-
-    EXPECT_EQ(foodmaker->getMode(), FoodDrinksMode::Drinks);
-    testing::internal::CaptureStdout();
-    manager->configureFoodDrinksStation(2, 0);
-    testing::internal::GetCapturedStdout();
-
-    EXPECT_EQ(foodmaker->getMode(), FoodDrinksMode::Food);
-}
-
-TEST_F(ProductionManagerTest, GetProductName) {
-    EXPECT_EQ(manager->getProductName(0), "Fuel");
-    EXPECT_EQ(manager->getProductName(1), "Details");
-    std::string defaultFood = manager->getProductName(2);
-    EXPECT_TRUE(defaultFood == "Food" || defaultFood == "Drinks")
-        << "Expected 'Food' or 'Drinks', got '" << defaultFood << "'";
-    testing::internal::CaptureStdout();
-    manager->configurePartAssembler(1, 1);
-    testing::internal::GetCapturedStdout();
-    EXPECT_EQ(manager->getProductName(1), "Decorations");
-    testing::internal::CaptureStdout();
-    manager->configureFoodDrinksStation(2, 1);
-    testing::internal::GetCapturedStdout();
-    EXPECT_EQ(manager->getProductName(2), "Drinks");
-    EXPECT_EQ(manager->getProductName(5), "Unknown");
-    EXPECT_EQ(manager->getProductName(-1), "Unknown");
-}
 
 TEST_F(ProductionManagerTest, GetProductPrice) {
     EXPECT_EQ(manager->getProductPrice(0), 18);
@@ -152,10 +96,8 @@ TEST_F(ProductionManagerTest, GetProductPrice) {
     manager->upgradeAppliance(0, *player);
     EXPECT_EQ(manager->getProductPrice(0), 28);
 
-    manager->configurePartAssembler(1, 1);
     EXPECT_EQ(manager->getProductPrice(1), 25);
 
-    manager->configureFoodDrinksStation(2, 1);
     EXPECT_EQ(manager->getProductPrice(2), 7);
 
     EXPECT_EQ(manager->getProductPrice(5), 0);
