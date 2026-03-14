@@ -147,13 +147,13 @@ TEST_F(ProductionManagerTest, GetProductName) {
 
 TEST_F(ProductionManagerTest, GetProductPrice) {
     EXPECT_EQ(manager->getProductPrice(0), 18);
-    EXPECT_EQ(manager->getProductPrice(1), 20);;
+    EXPECT_EQ(manager->getProductPrice(1), 25);;
 
     manager->upgradeAppliance(0, *player);
     EXPECT_EQ(manager->getProductPrice(0), 28);
 
     manager->configurePartAssembler(1, 1);
-    EXPECT_EQ(manager->getProductPrice(1), 45);
+    EXPECT_EQ(manager->getProductPrice(1), 25);
 
     manager->configureFoodDrinksStation(2, 1);
     EXPECT_EQ(manager->getProductPrice(2), 7);

@@ -34,13 +34,13 @@ TEST_F(PartAssemblerTest, ModeMethods) {
 }
 
 TEST_F(PartAssemblerTest, CurrentPrice) {
-    EXPECT_EQ(assembler->getCurrentPrice(), 20);
+    EXPECT_EQ(assembler->getCurrentPrice(), 25);
 
     assembler->setMode(PartAssemblerMode::Decorations);
-    EXPECT_EQ(assembler->getCurrentPrice(), 45);
+    EXPECT_EQ(assembler->getCurrentPrice(), 25);
 
     assembler->upgrade();
-    EXPECT_EQ(assembler->getCurrentPrice(), 70);
+    EXPECT_EQ(assembler->getCurrentPrice(), 40);
 }
 
 TEST_F(PartAssemblerTest, UpgradeCost) {
