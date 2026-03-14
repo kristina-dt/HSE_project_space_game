@@ -28,6 +28,7 @@ public:
     int getSellPrice(Resource::Type type) const;
     bool sell(Resource::Type type, int amount);
     void print() const;
+    void sellSetPrice(Resource::Type type, int newPrice);
 };
 
 

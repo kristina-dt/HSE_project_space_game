@@ -76,7 +76,9 @@ bool InformationPlayer::sell(Resource::Type type, int amount) {
     }
     return false;
 }
-
+void InformationPlayer::sellSetPrice(Resource::Type type, int newPrice) {
+    sellPrice[type] = newPrice;
+}
 void InformationPlayer::print() const {
     std::cout <<"Player's name: " << name << '\n';
     std::cout << wall << '\n';
